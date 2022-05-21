@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "78013195503",
+    "project_id": "maugram-social",
+    "storage_bucket": "maugram-social.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:78013195503:android:3324b371658971f2fd671a",
+        "android_client_info": {
+          "package_name": "com.example.maugramsocial"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "78013195503-avk78tj74f1m4ebejvrq8a7cpir1dib1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtU4webpQVI34FeBfNvppYK-C-9LVbNOQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "78013195503-avk78tj74f1m4ebejvrq8a7cpir1dib1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

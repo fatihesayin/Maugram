@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/pageHome"
+        android:enabled="true"
+        android:icon="@drawable/ic_home"
+        android:title="@string/navigationHomeText"/>
+    <item
+        android:id="@+id/pageSearch"
+        android:enabled="true"
+        android:icon="@drawable/ic_search"
+        android:title="@string/navigationSearchText"/>
+    <item
+        android:id="@+id/pageLikes"
+        android:enabled="true"
+        android:icon="@drawable/ic_star"
+        android:title="@string/navigationLikesText"/>
+    <item
+        android:id="@+id/pageProfile"
+        android:enabled="true"
+        android:icon="@drawable/ic_person"
+        android:title="@string/navigationMyProfileText"/>
+
+</menu>

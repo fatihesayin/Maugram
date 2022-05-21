@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/logoInRegister"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/maugram" />
+
+    <!-- İsim Soyisim -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textFieldNameInRegister"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        app:startIconDrawable="@drawable/ic_person"
+        app:startIconContentDescription="@string/contentDescriptionInEditTextName"
+        app:boxBackgroundMode="outline">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputNameInRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/contentDescriptionInEditTextName"/>
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Kullanıcı Adı -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textFieldUserNameInRegister"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        app:startIconDrawable="@drawable/ic_username"
+        app:startIconContentDescription="@string/contentDescriptionInEditUserName"
+        app:boxBackgroundMode="outline">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputUserNameInRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/contentDescriptionInEditUserName"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Email Girişi -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textFieldEmailInRegister"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        app:startIconDrawable="@drawable/ic_email"
+        app:startIconContentDescription="@string/contentDescriptionInEditTextEmail"
+        app:boxBackgroundMode="outline">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputEmailInRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:hint="@string/contentDescriptionInEditTextEmail" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Fakülteler -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/facultiesDropDownLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        app:startIconDrawable="@drawable/ic_school"
+        app:boxBackgroundColor="#D3D6D6">
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:inputType="none"
+            android:hint="@string/hintDropDownMenu"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Şifre Girişi -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textFieldPasswordInRegister"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        app:startIconDrawable="@drawable/ic_lock"
+        app:startIconContentDescription="@string/contentDescriptionInEditTextPassword"
+        app:boxBackgroundMode="outline">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputPasswordInRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/contentDescriptionInEditTextPassword"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Şifre Doğrulama -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textFieldConfirmPasswordInRegister"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        app:startIconDrawable="@drawable/ic_lock"
+        app:startIconContentDescription="@string/contentDescriptionInEditTextPassword"
+        app:boxBackgroundMode="outline">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputConfirmPasswordInRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/contentDescriptionInEditTextConfirmPassword"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:text="@string/registerButtonText" />
+    <LinearLayout
+        android:id="@+id/linearRegisterTextLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <TextView
+            android:id="@+id/txtRegisterHelper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/registerHelper"/>
+        <TextView
+            android:id="@+id/txtSignUpToLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/purple_700"
+            android:text="@string/intentLogin"
+            android:onClick="RegisterToLoginIntentText"/>
+    </LinearLayout>
+
+</LinearLayout>

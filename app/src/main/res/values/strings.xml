@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">Maugram Social</string>
+    <string name="contentDescriptionInEditTextEmail">Email</string>
+    <string name="contentDescriptionInEditTextPassword">Password</string>
+    <string name="contentDescriptionInEditTextConfirmPassword">Confirm Your Password</string>
+    <string name="contentDescriptionInEditTextName">Full Name</string>
+    <string name="contentDescriptionInEditUserName">Username</string>
+    <string name="contentDescriptionInDropDownMenu">Departments</string>
+    <string name="loginHelper">Don\'t have an account? </string>
+    <string name="registerHelper">Have an account? </string>
+    <string name="hintDropDownMenu">Faculties</string>
+    <string name="intentSignUp">Register Here!</string>
+    <string name="intentLogin">Login Here!</string>
+    <string name="loginButtonText">LOGIN</string>
+    <string name="registerButtonText">REGISTER</string>
+    <string name="helperText">Required*</string>
+    <string name="waitText">Please Wait</string>
+
+    <string name="navigationHomeText">Home</string>
+    <string name="navigationSearchText">Search</string>
+    <string name="navigationLikesText">Clubs</string>
+    <string name="navigationMyProfileText">My Profile</string>
+
+    <string-array name="faculties">
+        <item>Faculty of Education</item>
+        <item>Faculty of Fine Arts</item>
+        <item>Faculty of Law</item>
+        <item>Faculty of Humanities and Social Sciences</item>
+        <item>Faculty of Business and Management Sciences</item>
+        <item>Faculty of Architecture and Design</item>
+        <item>Faculty of Engineering and Natural Sciences</item>
+        <item>Faculty of Medicine</item>
+        <item>Vocational School</item>
+
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
