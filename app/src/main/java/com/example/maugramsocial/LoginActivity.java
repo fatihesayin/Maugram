@@ -27,8 +27,7 @@ import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
 
-    FirebaseAuth mAuth;
-
+    FirebaseAuth fAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,9 +37,13 @@ public class LoginActivity extends AppCompatActivity {
         Button btnLogin = findViewById(R.id.btnLogin);
         TextInputEditText textInputEmail = findViewById(R.id.textInputEmail);
         TextInputEditText textInputPassword = findViewById(R.id.textInputPassword);
-        mAuth = FirebaseAuth.getInstance();
-
+        //DatabaseReference dbReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://maugram-social-default-rtdb.firebaseio.com/");
+        fAuth = FirebaseAuth.getInstance();
         final LoadingDialog loadingDialog = new LoadingDialog(LoginActivity.this);
+        if(fAuth.getUid() != null){
+            updateUI();
+            finish();
+        }
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,44 +54,29 @@ public class LoginActivity extends AppCompatActivity {
 
                 if(TextUtils.isEmpty(email) || TextUtils.isEmpty(password)){
                     Toast.makeText(LoginActivity.this,"Please fill all fields !",Toast.LENGTH_SHORT).show();
+                    loadingDialog.stopLoadingDialog();
                 }
                 else{
-                    mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                    fAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
-                                DatabaseReference dbLogin = FirebaseDatabase.getInstance().getReference().child("users").child(Objects.requireNonNull(mAuth.getCurrentUser()).getUid());
-                                dbLogin.addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        Intent intentToTimeline = new Intent(getApplicationContext(),TimelineActivity.class);
-                                        intentToTimeline.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        startActivity(intentToTimeline);
-                                        finish();
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                    }
-                                });
+                                updateUI();
                             }
-                            else{
-                                loadingDialog.stopLoadingDialog();
-                                Toast.makeText(LoginActivity.this,"Email or password is incorrect !",Toast.LENGTH_SHORT).show();
-                            }
+                            else
+                                Toast.makeText(LoginActivity.this,task.getException().getMessage(),Toast.LENGTH_SHORT).show();
 
                         }
                     });
                 }
-
-
-
-
             }
         });
 
 
+    }
+    public void updateUI(){
+        Intent intentToTimeline = new Intent(getApplicationContext(),TimelineActivity.class);
+        startActivity(intentToTimeline);
     }
 
     public void LoginToRegisterIntentText(View view) {

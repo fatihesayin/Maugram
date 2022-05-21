@@ -21,7 +21,7 @@ public class TimelineActivity extends AppCompatActivity {
 
         HomeFragment homeFragment = new HomeFragment();
         SearchFragment searchFragment = new SearchFragment();
-        LikesFragment likesFragment = new LikesFragment();
+        ClubsFragment likesFragment = new ClubsFragment();
         ProfileFragment profileFragment = new ProfileFragment();
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);

@@ -37,7 +37,9 @@ public class RegisterActivity extends AppCompatActivity {
     Button btnRegister;
     EditText editTxtFullname,editTxtUsername,editTxtMail,editTxtPassword,editTxtConfirmPassword;
     AutoCompleteTextView facultyNames;
-    DatabaseReference dbReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://maugram-social-default-rtdb.firebaseio.com/");
+    //DatabaseReference dbReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://maugram-social-default-rtdb.firebaseio.com/");
+    FirebaseAuth fAuth;
+
 
     final LoadingDialog loadingDialog = new LoadingDialog(RegisterActivity.this);
     String fullName,email,username,password, confirmPassword,faculties;
@@ -54,11 +56,17 @@ public class RegisterActivity extends AppCompatActivity {
         editTxtConfirmPassword = findViewById(R.id.textInputConfirmPasswordInRegister);
         facultyNames = findViewById(R.id.autoCompleteTextView);
         //DropDown Menu Implementation
-
         ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this, R.array.faculties, android.R.layout.simple_dropdown_item_1line);
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         facultyNames.setAdapter(adapter);
 
+        fAuth = FirebaseAuth.getInstance();
+
+
+        if(fAuth.getCurrentUser() != null){
+            updateUI();
+            finish();
+        }
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,32 +89,16 @@ public class RegisterActivity extends AppCompatActivity {
                     loadingDialog.stopLoadingDialog();
                 }
                 else{
-
-                    dbReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+                    fAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if (snapshot.hasChild(email)){
-                                Toast.makeText(RegisterActivity.this,"Email had been registered before!",Toast.LENGTH_SHORT).show();
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful())
+                                updateUI();
+                            else
+                                Toast.makeText(RegisterActivity.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
+                                loadingDialog.stopLoadingDialog();
                         }
                     });
-
-                    dbReference.child("users").child(email).child("userName").setValue(username);
-                    dbReference.child("users").child(email).child("fullName").setValue(fullName);
-                    dbReference.child("users").child(email).child("faculty").setValue(faculties);
-                    dbReference.child("users").child(email).child("password").setValue(password);
-
-                    Toast.makeText(RegisterActivity.this,"Registered Successfully!",Toast.LENGTH_SHORT).show();
-                    loadingDialog.stopLoadingDialog();
-
-                    Intent intentRegisterToLogin = new Intent(getApplicationContext(), LoginActivity.class);
-                    startActivity(intentRegisterToLogin);
-
                 }
 
             }
@@ -114,8 +106,10 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-
-
+    public void updateUI(){
+        Intent intentRegisterToLogin = new Intent(getApplicationContext(), LoginActivity.class);
+        startActivity(intentRegisterToLogin);
+    }
     public void RegisterToLoginIntentText(View view) {
         Intent intentRegisterToLogin = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(intentRegisterToLogin);
