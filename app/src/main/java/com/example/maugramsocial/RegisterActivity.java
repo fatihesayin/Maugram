@@ -45,7 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
+        String fatih;
         //Widget Declarations
         btnRegister = findViewById(R.id.btnRegister);
         editTxtFullname = findViewById(R.id.textInputNameInRegister);
