@@ -37,21 +37,20 @@ public class RegisterActivity extends AppCompatActivity {
     Button btnRegister;
     EditText editTxtFullname,editTxtUsername,editTxtMail,editTxtPassword,editTxtConfirmPassword;
     AutoCompleteTextView facultyNames;
-    DatabaseReference dbReference;
-    FirebaseAuth mAuth;
+    DatabaseReference dbReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://maugram-social-default-rtdb.firebaseio.com/");
 
     final LoadingDialog loadingDialog = new LoadingDialog(RegisterActivity.this);
+    String fullName,email,username,password, confirmPassword,faculties;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        String fatih;
         //Widget Declarations
         btnRegister = findViewById(R.id.btnRegister);
         editTxtFullname = findViewById(R.id.textInputNameInRegister);
         editTxtUsername = findViewById(R.id.textInputUserNameInRegister);
-        editTxtMail = findViewById(R.id.textInputEmail);
-        editTxtPassword = findViewById(R.id.textInputPassword);
+        editTxtMail = findViewById(R.id.textInputEmailInRegister);
+        editTxtPassword = findViewById(R.id.textInputPasswordInRegister);
         editTxtConfirmPassword = findViewById(R.id.textInputConfirmPasswordInRegister);
         facultyNames = findViewById(R.id.autoCompleteTextView);
         //DropDown Menu Implementation
@@ -66,13 +65,14 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 loadingDialog.startLoadingDialog();
-                final String fullName = editTxtFullname.getText().toString();
-                final String email = editTxtMail.getText().toString();
-                final String username = editTxtUsername.getText().toString();
-                final String password = editTxtPassword.getText().toString();
-                final String confirmPassword = editTxtConfirmPassword.getText().toString();
-                final String faculties = facultyNames.getText().toString();
-                if (TextUtils.isEmpty(username) || TextUtils.isEmpty(email)||TextUtils.isEmpty(password)||TextUtils.isEmpty(confirmPassword)){
+                fullName = editTxtFullname.getText().toString();
+                email = editTxtMail.getText().toString();
+                username = editTxtUsername.getText().toString();
+                password = editTxtPassword.getText().toString();
+                confirmPassword = editTxtConfirmPassword.getText().toString();
+                faculties = facultyNames.getText().toString();
+
+                if (TextUtils.isEmpty(username) || TextUtils.isEmpty(fullName)||TextUtils.isEmpty(email)||TextUtils.isEmpty(faculties)||TextUtils.isEmpty(password)||TextUtils.isEmpty(confirmPassword)){
                     Toast.makeText(RegisterActivity.this,"Please fill all fields !",Toast.LENGTH_SHORT).show();
                     loadingDialog.stopLoadingDialog();
                 }
@@ -81,21 +81,12 @@ public class RegisterActivity extends AppCompatActivity {
                     loadingDialog.stopLoadingDialog();
                 }
                 else{
+
                     dbReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            //Checking if mail is registered before
                             if (snapshot.hasChild(email)){
-                                Toast.makeText(RegisterActivity.this,"This mail was registered before!",Toast.LENGTH_SHORT).show();
-                            }
-                            else{
-                                dbReference.child("users").child(email).child("fullName").setValue(fullName);
-                                dbReference.child("users").child(email).child("userName").setValue(username);
-                                dbReference.child("users").child(email).child("faculties").setValue(faculties);
-                                dbReference.child("users").child(email).child("password").setValue(password);
-
-                                Toast.makeText(RegisterActivity.this,"Registered Successfully!",Toast.LENGTH_SHORT).show();
-                                finish();
+                                Toast.makeText(RegisterActivity.this,"Email had been registered before!",Toast.LENGTH_SHORT).show();
                             }
                         }
 
@@ -104,6 +95,18 @@ public class RegisterActivity extends AppCompatActivity {
 
                         }
                     });
+
+                    dbReference.child("users").child(email).child("userName").setValue(username);
+                    dbReference.child("users").child(email).child("fullName").setValue(fullName);
+                    dbReference.child("users").child(email).child("faculty").setValue(faculties);
+                    dbReference.child("users").child(email).child("password").setValue(password);
+
+                    Toast.makeText(RegisterActivity.this,"Registered Successfully!",Toast.LENGTH_SHORT).show();
+                    loadingDialog.stopLoadingDialog();
+
+                    Intent intentRegisterToLogin = new Intent(getApplicationContext(), LoginActivity.class);
+                    startActivity(intentRegisterToLogin);
+
                 }
 
             }
