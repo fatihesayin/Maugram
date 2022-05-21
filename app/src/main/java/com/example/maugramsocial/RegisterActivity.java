@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,9 +35,8 @@ import java.util.Objects;
 public class RegisterActivity extends AppCompatActivity {
 
     Button btnRegister;
-
-
-
+    EditText editTxtFullname,editTxtUsername,editTxtMail,editTxtPassword,editTxtConfirmPassword;
+    AutoCompleteTextView facultyNames;
     DatabaseReference dbReference;
     FirebaseAuth mAuth;
 
@@ -46,23 +46,14 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        EditText editTxtFullname,editTxtUsername,editTxtMail,editTxtPassword,editTxtConfirmPassword;
         //Widget Declarations
         btnRegister = findViewById(R.id.btnRegister);
-        editTxtFullname = findViewById(R.id.textInputNameInRegister)
+        editTxtFullname = findViewById(R.id.textInputNameInRegister);
         editTxtUsername = findViewById(R.id.textInputUserNameInRegister);
-        editTxtMail = findViewById(R.id.textInputEmailInRegister);
-        editTxtPassword = findViewById(R.id.textInputPasswordInRegister);
+        editTxtMail = findViewById(R.id.textInputEmail);
+        editTxtPassword = findViewById(R.id.textInputPassword);
         editTxtConfirmPassword = findViewById(R.id.textInputConfirmPasswordInRegister);
-        AutoCompleteTextView facultyNames = findViewById(R.id.autoCompleteTextView);
-
-        final String fullName = findViewById(R.id.textInputNameInRegister);
-        final String username = Objects.requireNonNull(editTxtUsername.getText()).toString();
-        final String email = Objects.requireNonNull(editTxtMail.getText()).toString();
-        final String faculties = facultyNames.getText().toString();
-        final String password = Objects.requireNonNull(editTxtPassword.getText()).toString();
-        final String confirmPassword = Objects.requireNonNull(editTxtConfirmPassword.getText()).toString();
-
+        facultyNames = findViewById(R.id.autoCompleteTextView);
         //DropDown Menu Implementation
 
         ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this, R.array.faculties, android.R.layout.simple_dropdown_item_1line);
@@ -75,9 +66,13 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 loadingDialog.startLoadingDialog();
-                String name = fullName.getText().toString();
-                Toast.makeText(RegisterActivity.this, name, Toast.LENGTH_SHORT).show();
-                if (TextUtils.isEmpty(username) || TextUtils.isEmpty(email)||TextUtils.isEmpty(faculties)||TextUtils.isEmpty(password)||TextUtils.isEmpty(confirmPassword)){
+                final String fullName = editTxtFullname.getText().toString();
+                final String email = editTxtMail.getText().toString();
+                final String username = editTxtUsername.getText().toString();
+                final String password = editTxtPassword.getText().toString();
+                final String confirmPassword = editTxtConfirmPassword.getText().toString();
+                final String faculties = facultyNames.getText().toString();
+                if (TextUtils.isEmpty(username) || TextUtils.isEmpty(email)||TextUtils.isEmpty(password)||TextUtils.isEmpty(confirmPassword)){
                     Toast.makeText(RegisterActivity.this,"Please fill all fields !",Toast.LENGTH_SHORT).show();
                     loadingDialog.stopLoadingDialog();
                 }
