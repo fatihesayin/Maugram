@@ -5,7 +5,7 @@
       <map>
         <entry key="..\:/Users/lenovo/Desktop/MaugramSocial/app/src/main/res/drawable/ic_email.xml" value="0.2703125" />
         <entry key="..\:/Users/lenovo/Desktop/MaugramSocial/app/src/main/res/drawable/list_item.xml" value="0.2703125" />
-        <entry key="..\:/Users/lenovo/Desktop/MaugramSocial/app/src/main/res/layout/activity_login.xml" value="0.10833333333333334" />
+        <entry key="..\:/Users/lenovo/Desktop/MaugramSocial/app/src/main/res/layout/activity_login.xml" value="0.16799999999999998" />
         <entry key="..\:/Users/lenovo/Desktop/MaugramSocial/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/lenovo/Desktop/MaugramSocial/app/src/main/res/layout/activity_register.xml" value="0.25" />
         <entry key="..\:/Users/lenovo/Desktop/MaugramSocial/app/src/main/res/layout/activity_timeline.xml" value="0.24682971014492755" />
@@ -15,6 +15,7 @@
         <entry key="..\:/Users/lenovo/Desktop/MaugramSocial/app/src/main/res/layout/fragment_profile.xml" value="0.24682971014492755" />
         <entry key="..\:/Users/lenovo/Desktop/MaugramSocial/app/src/main/res/layout/fragment_search.xml" value="0.24682971014492755" />
         <entry key="..\:/Users/lenovo/Desktop/MaugramSocial/app/src/main/res/layout/list_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/lenovo/Desktop/MaugramSocial/app/src/main/res/layout/user_element.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/lenovo/Desktop/MaugramSocial/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.25416666666666665" />
       </map>
     </option>

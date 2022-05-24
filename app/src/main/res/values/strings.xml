@@ -9,13 +9,17 @@
     <string name="loginHelper">Don\'t have an account? </string>
     <string name="registerHelper">Have an account? </string>
     <string name="hintDropDownMenu">Faculties</string>
+
+    <!-- Buttons -->
     <string name="intentSignUp">Register Here!</string>
     <string name="intentLogin">Login Here!</string>
     <string name="loginButtonText">LOGIN</string>
     <string name="registerButtonText">REGISTER</string>
     <string name="helperText">Required*</string>
     <string name="waitText">Please Wait</string>
+    <string name="followButtonText">FOLLOW</string>
 
+    <!-- Navigation Bar -->
     <string name="navigationHomeText">Home</string>
     <string name="navigationSearchText">Search</string>
     <string name="navigationLikesText">Clubs</string>

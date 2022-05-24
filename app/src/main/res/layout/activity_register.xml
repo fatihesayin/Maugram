@@ -28,6 +28,8 @@
             android:id="@+id/textInputNameInRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
             android:hint="@string/contentDescriptionInEditTextName"/>
 
 
@@ -46,6 +48,8 @@
             android:id="@+id/textInputUserNameInRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
             android:hint="@string/contentDescriptionInEditUserName"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -62,6 +66,8 @@
             android:id="@+id/textInputEmailInRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
             android:inputType="textEmailAddress"
             android:hint="@string/contentDescriptionInEditTextEmail" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -78,6 +84,8 @@
             android:id="@+id/autoCompleteTextView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
             android:layout_weight="1"
             android:inputType="none"
             android:hint="@string/hintDropDownMenu"/>
@@ -95,6 +103,8 @@
             android:id="@+id/textInputPasswordInRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
             android:hint="@string/contentDescriptionInEditTextPassword"
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -111,6 +121,8 @@
             android:id="@+id/textInputConfirmPasswordInRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
             android:hint="@string/contentDescriptionInEditTextConfirmPassword"
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -121,6 +133,8 @@
         android:id="@+id/btnRegister"
         android:layout_width="400dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         android:text="@string/registerButtonText" />
     <LinearLayout
         android:id="@+id/linearRegisterTextLayout"
