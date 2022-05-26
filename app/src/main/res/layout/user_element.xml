@@ -5,14 +5,14 @@
     android:layout_height="match_parent">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profilePhoto"
+        android:id="@+id/profilePhotoElement"
         android:src="@mipmap/ic_launcher"
         android:layout_width="50dp"
         android:layout_height="50dp"/>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/profilePhoto"
+        android:layout_toEndOf="@+id/profilePhotoElement"
         android:layout_marginStart="5dp"
         android:orientation="vertical">
 
@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="38dp"
         android:layout_alignParentEnd="true"
-        android:text="FOLLOW"
+        android:text="Follow Now"
         android:visibility="gone"/>
 
 </RelativeLayout>

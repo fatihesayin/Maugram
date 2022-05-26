@@ -8,8 +8,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +53,6 @@ public class SearchFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-
         search_bar = view.findViewById(R.id.textInputSearch);
 
         mUsers = new ArrayList<>();
@@ -59,7 +60,28 @@ public class SearchFragment extends Fragment {
 
         recyclerView.setAdapter(userAdapter);
 
-        readUsers();
+        DatabaseReference userPath = FirebaseDatabase.getInstance().getReference("Users");
+        userPath.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if (search_bar.getText().toString().equals("")){
+                    mUsers.clear();
+
+                    for (DataSnapshot snapshot1 : snapshot.getChildren()){
+                        User user = snapshot1.getValue(User.class);
+                        mUsers.add(user);
+                    }
+                    userAdapter.notifyDataSetChanged();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         search_bar.addTextChangedListener(new TextWatcher() {
             @Override
@@ -116,9 +138,11 @@ public class SearchFragment extends Fragment {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                         User user = snapshot.getValue(User.class);
                         mUsers.add(user);
+                        Log.d("msg", String.valueOf(user));
                     }
                     userAdapter.notifyDataSetChanged();
                 }
+
             }
 
             @Override

@@ -1,6 +1,5 @@
 package com.example.maugramsocial.Adapter;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
@@ -49,24 +48,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
         View view = LayoutInflater.from(mContext).inflate(R.layout.user_element,parent,false);
         return new UserAdapter.ViewHolder(view);
     }
-    private void following(String userID, final Button button){
-        DatabaseReference followerPath = FirebaseDatabase.getInstance().getReference().child("Follow")
-                .child(fUser.getUid()).child("Following");
-        followerPath.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.child(userID).exists())
-                    button.setText("Following");
-                else
-                    button.setText("Follow");
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
@@ -75,7 +56,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
         viewHolder.btnFollow.setVisibility(View.VISIBLE);
         viewHolder.btnFollow.setText(user.getUserName());
         viewHolder.fullName.setText(user.getFullName());
-        Glide.with(mContext).load(user.getPhotoURL()).into(viewHolder.profilePhoto);
+
+        Glide.with(mContext).load(user.getPhotoURL()).into(viewHolder.profilePhotoElement);
         following(user.getId(), viewHolder.btnFollow);
 
         if (user.getId().equals(fUser.getUid())) {
@@ -85,7 +67,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
             @Override
             public void onClick(View v) {
                 SharedPreferences.Editor editor = mContext.getSharedPreferences("PREFS",Context.MODE_PRIVATE).edit();
-                editor.putString("profileID", user.getId());
+                editor.putString("id", user.getId());
                 editor.apply();
 
                 ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction()
@@ -96,7 +78,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
         viewHolder.btnFollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (viewHolder.btnFollow.getText().toString().equals("Follow")){
+                if (viewHolder.btnFollow.getText().toString().equals("Follow Now")){
                     FirebaseDatabase.getInstance().getReference().child("Follow").child(fUser.getUid())
                             .child("Following").child(user.getId()).setValue(true);
 
@@ -127,7 +109,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView userName,fullName;
-        public CircleImageView profilePhoto;
+        public CircleImageView profilePhotoElement;
         public Button btnFollow;
 
 
@@ -136,9 +118,32 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
 
             userName = itemView.findViewById(R.id.txtUsernameElement);
             fullName = itemView.findViewById(R.id.txtFullnameElement);
-            profilePhoto = itemView.findViewById(R.id.profilePhoto);
+            profilePhotoElement = itemView.findViewById(R.id.profilePhotoElement);
             btnFollow = itemView.findViewById(R.id.btnFollowElement);
         }
     }
+    private void following(String userID, final Button button){
+        DatabaseReference followerPath = FirebaseDatabase.getInstance().getReference().child("Follow")
+                .child(fUser.getUid()).child("Following");
+        followerPath.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if (snapshot.child(userID).exists()){
+                    button.setText("Following");
+                }
+                else {
+                    button.setText("Follow Now");
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
 
 }

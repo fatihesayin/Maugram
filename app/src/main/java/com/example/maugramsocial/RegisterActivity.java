@@ -116,7 +116,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                             hashMap.put("id", userId);
                             hashMap.put("userName", username.toLowerCase(Locale.ROOT));
-                            hashMap.put("name", fullName);
+                            hashMap.put("fullName", fullName);
                             hashMap.put("bio", "");
                             hashMap.put("photourl", "https://firebasestorage.googleapis.com/v0/b/maugram-social.appspot.com/o/placeholder.png?alt=media&token=28e5a9ee-3b01-45d8-ac72-7b091aca3c52");
 
