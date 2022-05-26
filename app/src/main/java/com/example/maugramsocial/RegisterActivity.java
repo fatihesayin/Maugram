@@ -1,5 +1,6 @@
 package com.example.maugramsocial;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -29,6 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
@@ -37,7 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
     Button btnRegister;
     EditText editTxtFullname,editTxtUsername,editTxtMail,editTxtPassword,editTxtConfirmPassword;
     AutoCompleteTextView facultyNames;
-    //DatabaseReference dbReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://maugram-social-default-rtdb.firebaseio.com/");
+    DatabaseReference dbPath = FirebaseDatabase.getInstance().getReferenceFromUrl("https://maugram-social-default-rtdb.firebaseio.com/");
     FirebaseAuth fAuth;
 
 
@@ -89,21 +91,59 @@ public class RegisterActivity extends AppCompatActivity {
                     loadingDialog.stopLoadingDialog();
                 }
                 else{
-                    fAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful())
-                                updateUI();
-                            else
-                                Toast.makeText(RegisterActivity.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
-                                loadingDialog.stopLoadingDialog();
-                        }
-                    });
-                }
+                    save(username, fullName, email, password);
+                };
 
             }
         });
 
+    }
+
+    private void save(final String UserName, final String Name, String email, String password){
+        //New User Saving Codes
+        fAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+
+                        if (task.isSuccessful()){
+                            FirebaseUser fUser = fAuth.getCurrentUser();
+
+                            String userId = fUser.getUid();
+                            dbPath=FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+
+                            HashMap<String, Object> hashMap = new HashMap<>();
+
+                            hashMap.put("id", userId);
+                            hashMap.put("userName", username.toLowerCase(Locale.ROOT));
+                            hashMap.put("name", fullName);
+                            hashMap.put("bio", "");
+                            hashMap.put("photourl", "https://firebasestorage.googleapis.com/v0/b/maugram-social.appspot.com/o/placeholder.png?alt=media&token=28e5a9ee-3b01-45d8-ac72-7b091aca3c52");
+
+                            dbPath.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+
+                                    if(task.isSuccessful()){
+                                        loadingDialog.stopLoadingDialog();
+
+                                        Intent intent = new Intent(RegisterActivity.this, HomeFragment.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+
+                                    }
+
+                                }
+                            });
+                        }
+                        else {
+                            loadingDialog.stopLoadingDialog();
+                            Toast.makeText(RegisterActivity.this, "Bu mail veya şifre ile kayıt başarısız...", Toast.LENGTH_SHORT).show();
+
+                        }
+
+                    }
+                });
     }
 
     public void updateUI(){
