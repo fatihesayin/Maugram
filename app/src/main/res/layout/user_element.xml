@@ -34,10 +34,9 @@
     <Button
         android:id="@+id/btnFollow"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/followButtonText"
+        android:layout_height="36dp"
         android:layout_alignParentEnd="true"
-        android:height="36dp"
+        android:text="FOLLOW"
         android:visibility="gone"/>
 
 </RelativeLayout>

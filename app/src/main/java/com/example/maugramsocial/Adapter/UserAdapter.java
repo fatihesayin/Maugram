@@ -31,8 +31,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
 
-    private Context mContext;
-    private List<User> mUsers;
+    private final Context mContext;
+    private final List<User> mUsers;
     private FirebaseUser fUser;
 
     public UserAdapter(Context mContext, List<User> mUsers) {
@@ -47,16 +47,16 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
         return new UserAdapter.ViewHolder(view);
     }
     public void Following(final String userID,final Button button){
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("followUser")
-                .child(fUser.getUid()).child("followingUser");
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Follow")
+                .child(fUser.getUid()).child("Following");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.child(userID).exists())
-                    button.setText("Following");
+                    button.setText("FOLLOWING");
                 else
-                    button.setText("Follow");
+                    button.setText("FOLLOW");
             }
 
             @Override
@@ -78,20 +78,18 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
 
         if (user.getId().equals(fUser.getUid()))
             holder.btnFollow.setVisibility(View.GONE);
-        else
-        {
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    SharedPreferences.Editor editor = mContext.getSharedPreferences("PREFS",Context.MODE_PRIVATE).edit();
-                    editor.putString("profileID", user.getId());
-                    editor.apply();
 
-                    ((FragmentActivity) mContext).getSupportFragmentManager()
-                            .beginTransaction().replace(R.id.timeLineFrameLayout,new ProfileFragment()).commit();
-                }
-            });
-        }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences.Editor editor = mContext.getSharedPreferences("PREFS",Context.MODE_PRIVATE).edit();
+                editor.putString("profileID", user.getId());
+                editor.apply();
+
+                ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.timeLineFrameLayout,new ProfileFragment()).commit();
+            }
+        });
 
     }
 
@@ -102,7 +100,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
 
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder{
         public TextView userName,fullName;
         public CircleImageView profilePhoto;
         public Button btnFollow;
