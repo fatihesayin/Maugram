@@ -57,16 +57,13 @@ public class LoginActivity extends AppCompatActivity {
                     loadingDialog.stopLoadingDialog();
                 }
                 else{
-                    fAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()){
-                                updateUI();
-                            }
-                            else
-                                Toast.makeText(LoginActivity.this,task.getException().getMessage(),Toast.LENGTH_SHORT).show();
-
+                    fAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(task -> {
+                        if(task.isSuccessful()){
+                            updateUI();
                         }
+                        else
+                            Toast.makeText(LoginActivity.this,task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                            loadingDialog.startLoadingDialog();
                     });
                 }
             }

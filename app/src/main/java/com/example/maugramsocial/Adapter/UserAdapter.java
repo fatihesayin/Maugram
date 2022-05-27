@@ -54,7 +54,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
         fUser = FirebaseAuth.getInstance().getCurrentUser();
         final User user = mUsers.get(position);
         viewHolder.btnFollow.setVisibility(View.VISIBLE);
-        viewHolder.btnFollow.setText(user.getUserName());
+        viewHolder.userName.setText(user.getUserName());
         viewHolder.fullName.setText(user.getFullName());
 
         Glide.with(mContext).load(user.getPhotoURL()).into(viewHolder.profilePhotoElement);
@@ -63,16 +63,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
         if (user.getId().equals(fUser.getUid())) {
             viewHolder.btnFollow.setVisibility(View.GONE);
         }
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPreferences.Editor editor = mContext.getSharedPreferences("PREFS",Context.MODE_PRIVATE).edit();
-                editor.putString("id", user.getId());
-                editor.apply();
+        viewHolder.itemView.setOnClickListener(v -> {
+            SharedPreferences.Editor editor = mContext.getSharedPreferences("PREFS",Context.MODE_PRIVATE).edit();
+            editor.putString("id", user.getId());
+            editor.apply();
 
-                ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.timeLineFrameLayout,new ProfileFragment()).commit();
-            }
+            ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.timeLineFrameLayout,new ProfileFragment()).commit();
         });
 
         viewHolder.btnFollow.setOnClickListener(new View.OnClickListener() {
@@ -92,10 +89,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
                     FirebaseDatabase.getInstance().getReference().child("Follow").child(user.getId())
                             .child("Follower").child(fUser.getUid()).removeValue();
                 }
+                following(user.getId(), viewHolder.btnFollow);
             }
 
         });
-
 
 
     }
@@ -107,7 +104,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
 
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder{
         public TextView userName,fullName;
         public CircleImageView profilePhotoElement;
         public Button btnFollow;
@@ -122,7 +119,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
             btnFollow = itemView.findViewById(R.id.btnFollowElement);
         }
     }
-    private void following(String userID, final Button button){
+    private void following(String userID, Button button){
         DatabaseReference followerPath = FirebaseDatabase.getInstance().getReference().child("Follow")
                 .child(fUser.getUid()).child("Following");
         followerPath.addValueEventListener(new ValueEventListener() {

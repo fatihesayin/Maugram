@@ -14,11 +14,7 @@
         android:layout_gravity="center"
         android:textSize="30dp"
         android:text="Profile Fragment" />
-    <Button
-        android:id="@+id/btnLogout"
-        android:layout_width="400dp"
-        android:layout_height="wrap_content"
-        android:text="LOGOUT" />
+
 
 
 

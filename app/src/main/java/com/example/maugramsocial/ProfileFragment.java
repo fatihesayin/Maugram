@@ -13,7 +13,6 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class ProfileFragment extends Fragment {
 
-    FirebaseAuth fAuth;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -28,7 +27,5 @@ public class ProfileFragment extends Fragment {
     }
 
 
-    public void SignOut(){
 
-    }
 }

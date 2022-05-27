@@ -2,11 +2,10 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profilePhotoElement"
-        android:src="@mipmap/ic_launcher"
         android:layout_width="50dp"
         android:layout_height="50dp"/>
     <LinearLayout
@@ -37,6 +36,6 @@
         android:layout_height="38dp"
         android:layout_alignParentEnd="true"
         android:text="Follow Now"
-        android:visibility="gone"/>
+        />
 
 </RelativeLayout>
