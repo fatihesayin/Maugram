@@ -3,8 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Adisyo/AndroidStudioProjects/Maugram/app/src/main/res/drawable/ic_comment_.xml" value="0.1785" />
+        <entry key="..\:/Users/Adisyo/AndroidStudioProjects/Maugram/app/src/main/res/drawable/ic_message_box.xml" value="0.1785" />
+        <entry key="..\:/Users/Adisyo/AndroidStudioProjects/Maugram/app/src/main/res/drawable/ic_saved.xml" value="0.1785" />
+        <entry key="..\:/Users/Adisyo/AndroidStudioProjects/Maugram/app/src/main/res/layout/activity_post.xml" value="0.14130434782608695" />
+        <entry key="..\:/Users/Adisyo/AndroidStudioProjects/Maugram/app/src/main/res/layout/fragment_home.xml" value="0.14130434782608695" />
         <entry key="..\:/Users/Adisyo/AndroidStudioProjects/Maugram/app/src/main/res/layout/fragment_search.xml" value="0.1" />
+        <entry key="..\:/Users/Adisyo/AndroidStudioProjects/Maugram/app/src/main/res/layout/post_element.xml" value="0.14130434782608695" />
         <entry key="..\:/Users/Adisyo/AndroidStudioProjects/Maugram/app/src/main/res/layout/user_element.xml" value="0.13333333333333333" />
+        <entry key="..\:/Users/Adisyo/AndroidStudioProjects/Maugram/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.1796875" />
         <entry key="..\:/Users/lenovo/Desktop/MaugramSocial/app/src/main/res/drawable/ic_add.xml" value="0.1855" />
         <entry key="..\:/Users/lenovo/Desktop/MaugramSocial/app/src/main/res/drawable/ic_email.xml" value="0.2703125" />
         <entry key="..\:/Users/lenovo/Desktop/MaugramSocial/app/src/main/res/drawable/list_item.xml" value="0.2703125" />

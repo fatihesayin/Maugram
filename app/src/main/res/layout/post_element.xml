@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_photo_Post_Element"
+                android:layout_margin="10dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@mipmap/ic_launcher"/>
+            <TextView
+                android:id="@+id/txt_username_Post_Element"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:text="scuderiaferrari"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/post_photo_Post_Element"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+            <ImageView
+                android:id="@+id/like_Post_Element"
+                android:src="@drawable/ic_like_border"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
+            <ImageView
+                android:id="@+id/comment_Post_Element"
+                android:src="@drawable/ic_comment_"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_toEndOf="@id/like_Post_Element"
+                android:layout_marginStart="10dp"/>
+            <ImageView
+                android:id="@+id/saved_Post_Element"
+                android:src="@drawable/ic_saved"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"/>
+
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/txt_likes_Post_Element"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:text="1200 likes "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/txt_sender_Post_Element"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:text="scuderiaferrari"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/txt_postabout_Post_Element"
+            android:textColor="@color/black"
+            android:text="RACE WEEK! HERE WE GO!!!"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/txt_comments_Post_Element"
+            android:textStyle="bold"
+            android:textColor="@color/grey"
+            android:text="See all 20 comments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+</RelativeLayout>
