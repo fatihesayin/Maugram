@@ -24,6 +24,7 @@
     <string name="navigationSearchText">Search</string>
     <string name="navigationLikesText">Clubs</string>
     <string name="navigationMyProfileText">My Profile</string>
+    <string name="navigationAddPhotoText">Add</string>
 
     <string-array name="faculties">
         <item>Faculty of Education</item>

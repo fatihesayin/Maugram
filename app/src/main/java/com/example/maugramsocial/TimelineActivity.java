@@ -3,6 +3,7 @@ package com.example.maugramsocial;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -37,6 +38,10 @@ public class TimelineActivity extends AppCompatActivity {
                         return true;
                     case R.id.pageSearch:
                         getSupportFragmentManager().beginTransaction().replace(R.id.timeLineFrameLayout,searchFragment).commit();
+                        return true;
+                    case R.id.pagePost:
+                        Intent intentToPost = new Intent(getApplicationContext(),PostActivity.class);
+                        startActivity(intentToPost);
                         return true;
                     case R.id.pageLikes:
                         getSupportFragmentManager().beginTransaction().replace(R.id.timeLineFrameLayout,likesFragment).commit();

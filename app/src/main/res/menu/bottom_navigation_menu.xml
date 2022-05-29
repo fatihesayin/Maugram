@@ -11,6 +11,11 @@
         android:icon="@drawable/ic_search"
         android:title="@string/navigationSearchText"/>
     <item
+        android:id="@+id/pagePost"
+        android:enabled="true"
+        android:icon="@drawable/ic_add"
+        android:title="@string/navigationAddPhotoText"/>
+    <item
         android:id="@+id/pageLikes"
         android:enabled="true"
         android:icon="@drawable/ic_star"

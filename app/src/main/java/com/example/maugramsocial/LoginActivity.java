@@ -28,6 +28,7 @@ import java.util.Objects;
 public class LoginActivity extends AppCompatActivity {
 
     FirebaseAuth fAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,31 +46,26 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         }
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final String email = Objects.requireNonNull(textInputEmail.getText()).toString();
-                final String password = Objects.requireNonNull(textInputPassword.getText()).toString();
-                loadingDialog.startLoadingDialog();
+        btnLogin.setOnClickListener(v -> {
+            final String email = Objects.requireNonNull(textInputEmail.getText()).toString();
+            final String password = Objects.requireNonNull(textInputPassword.getText()).toString();
+            loadingDialog.startLoadingDialog();
 
-                if(TextUtils.isEmpty(email) || TextUtils.isEmpty(password)){
-                    Toast.makeText(LoginActivity.this,"Please fill all fields !",Toast.LENGTH_SHORT).show();
-                    loadingDialog.stopLoadingDialog();
-                }
-                else{
-                    fAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(task -> {
-                        if(task.isSuccessful()){
-                            updateUI();
-                        }
-                        else
-                            Toast.makeText(LoginActivity.this,task.getException().getMessage(),Toast.LENGTH_SHORT).show();
-                            loadingDialog.startLoadingDialog();
-                    });
-                }
+            if(TextUtils.isEmpty(email) || TextUtils.isEmpty(password)){
+                Toast.makeText(LoginActivity.this,"Please fill all fields !",Toast.LENGTH_SHORT).show();
+                loadingDialog.stopLoadingDialog();
+            }
+            else{
+                fAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        updateUI();
+                    }
+                    else
+                        Toast.makeText(LoginActivity.this,task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                        loadingDialog.stopLoadingDialog();
+                });
             }
         });
-
-
     }
     public void updateUI(){
         Intent intentToTimeline = new Intent(getApplicationContext(),TimelineActivity.class);
