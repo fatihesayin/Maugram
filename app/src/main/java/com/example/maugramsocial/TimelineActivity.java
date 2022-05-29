@@ -3,7 +3,6 @@ package com.example.maugramsocial;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -24,7 +23,6 @@ public class TimelineActivity extends AppCompatActivity {
         SearchFragment searchFragment = new SearchFragment();
         ClubsFragment likesFragment = new ClubsFragment();
         ProfileFragment profileFragment = new ProfileFragment();
-        PostActivity postActivity = new PostActivity();
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
@@ -40,8 +38,6 @@ public class TimelineActivity extends AppCompatActivity {
                     case R.id.pageSearch:
                         getSupportFragmentManager().beginTransaction().replace(R.id.timeLineFrameLayout,searchFragment).commit();
                         return true;
-                    case R.id.navAdd:
-                        startActivity(new Intent(TimelineActivity.this, PostActivity.class));
                     case R.id.pageLikes:
                         getSupportFragmentManager().beginTransaction().replace(R.id.timeLineFrameLayout,likesFragment).commit();
                         return true;
