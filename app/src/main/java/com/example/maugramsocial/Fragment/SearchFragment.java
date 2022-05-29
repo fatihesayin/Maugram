@@ -1,4 +1,4 @@
-package com.example.maugramsocial;
+package com.example.maugramsocial.Fragment;
 
 import android.app.DownloadManager;
 import android.os.Bundle;
@@ -19,6 +19,7 @@ import android.widget.EditText;
 
 import com.example.maugramsocial.Adapter.UserAdapter;
 import com.example.maugramsocial.Model.User;
+import com.example.maugramsocial.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

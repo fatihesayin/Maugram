@@ -1,4 +1,4 @@
-package com.example.maugramsocial;
+package com.example.maugramsocial.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,6 +7,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.maugramsocial.Activity.PostActivity;
+import com.example.maugramsocial.Fragment.ClubsFragment;
+import com.example.maugramsocial.Fragment.HomeFragment;
+import com.example.maugramsocial.Fragment.ProfileFragment;
+import com.example.maugramsocial.Fragment.SearchFragment;
+import com.example.maugramsocial.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -40,7 +46,7 @@ public class TimelineActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.timeLineFrameLayout,searchFragment).commit();
                         return true;
                     case R.id.pagePost:
-                        Intent intentToPost = new Intent(getApplicationContext(),PostActivity.class);
+                        Intent intentToPost = new Intent(getApplicationContext(), PostActivity.class);
                         startActivity(intentToPost);
                         return true;
                     case R.id.pageLikes:

@@ -1,4 +1,4 @@
-package com.example.maugramsocial;
+package com.example.maugramsocial.Fragment;
 
 import android.os.Bundle;
 
@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.maugramsocial.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ProfileFragment extends Fragment {

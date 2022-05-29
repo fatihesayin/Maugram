@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.maugramsocial.Model.User;
-import com.example.maugramsocial.ProfileFragment;
+import com.example.maugramsocial.Fragment.ProfileFragment;
 import com.example.maugramsocial.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

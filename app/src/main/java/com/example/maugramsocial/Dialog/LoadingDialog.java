@@ -1,14 +1,16 @@
-package com.example.maugramsocial;
+package com.example.maugramsocial.Dialog;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.view.LayoutInflater;
 
+import com.example.maugramsocial.R;
+
 public class LoadingDialog {
      Activity activity;
      AlertDialog dialog;
 
-     LoadingDialog(Activity myActivity){
+     public LoadingDialog(Activity myActivity){
 
           activity = myActivity;
      }

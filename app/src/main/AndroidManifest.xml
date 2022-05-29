@@ -14,16 +14,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MaugramSocial">
         <activity
-            android:name=".PostActivity"
+            android:name=".Activity.PostActivity"
             android:exported="false" />
         <activity
-            android:name=".TimelineActivity"
+            android:name=".Activity.TimelineActivity"
             android:exported="true" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".Activity.RegisterActivity"
             android:exported="true" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".Activity.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
