@@ -49,6 +49,7 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setReverseLayout(true);
         linearLayoutManager.setStackFromEnd(true);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
         postList = new ArrayList<>();
 
@@ -96,6 +97,7 @@ public class HomeFragment extends Fragment {
                     Post post = dataSnapshot.getValue(Post.class);
                     for (String userId : followList){
                         if (post.getPostUser().equals(userId)){
+                            Log.i("postId", post.getPostId());
                             postList.add(post);
                         }
                     }

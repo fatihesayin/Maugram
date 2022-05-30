@@ -7,6 +7,7 @@ public class Post {
     private String postUser;
 
     public Post() {
+
     }
 
     public Post(String postId, String postImage, String postAbout, String postUser) {
