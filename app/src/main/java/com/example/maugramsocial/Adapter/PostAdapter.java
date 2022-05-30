@@ -1,7 +1,6 @@
 package com.example.maugramsocial.Adapter;
 
 import android.content.Context;
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,6 +62,25 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         }
 
         senderInfo(holder.profile_photo,holder.txt_Username,holder.txt_Sender, post.getPostUser());
+        liked(post.getPostId(), holder.image_like);
+        likeCount(holder.txt_Likes, post.getPostId());
+
+        holder.image_like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (holder.image_like.getTag().equals("like")){
+                    FirebaseDatabase.getInstance().getReference().child("Likes").child(post.getPostId())
+                            .child(currentFU.getUid()).setValue(true);
+                }
+                else {
+                    FirebaseDatabase.getInstance().getReference().child("Likes").child(post.getPostId())
+                            .child(currentFU.getUid()).removeValue();
+
+                }
+
+            }
+        });
     }
 
     @Override
@@ -91,6 +109,55 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
             txt_Likes= itemView.findViewById(R.id.txt_likes_Post_Element);
             txt_Comments=itemView.findViewById(R.id.txt_comments_Post_Element);
         }
+    }
+
+    private void liked(String postId, ImageView imageView){
+        FirebaseUser currentFU = FirebaseAuth.getInstance().getCurrentUser();
+
+        DatabaseReference likePath = FirebaseDatabase.getInstance().getReference()
+                .child("Likes")
+                .child(postId);
+
+        likePath.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if (snapshot.child(currentFU.getUid()).exists()){
+                    imageView.setImageResource(R.drawable.ic_like_full);
+                    imageView.setTag("liked");
+                }
+                else {
+                    imageView.setImageResource(R.drawable.ic_like_border);
+                    imageView.setTag("like");
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void likeCount(TextView likes, String postId){
+        DatabaseReference likePath = FirebaseDatabase.getInstance().getReference()
+                .child("Likes")
+                .child(postId);
+
+        likePath.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                likes.setText(snapshot.getChildrenCount()+" like");
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void senderInfo(ImageView profile_photo, TextView username, TextView sender, String id){
