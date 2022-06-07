@@ -3,6 +3,8 @@ package com.example.maugramsocial.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.maugramsocial.Adapter.CommentAdapter;
+import com.example.maugramsocial.Model.Comment;
 import com.example.maugramsocial.Model.User;
 import com.example.maugramsocial.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,9 +27,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class CommentsActivity extends AppCompatActivity {
+
+    private RecyclerView recyclerView;
+    private CommentAdapter commentAdapter;
+    private List<Comment> commentList;
+
     EditText editAddComment;
     ImageView profilePhoto;
     TextView txtPost;
@@ -43,6 +54,14 @@ public class CommentsActivity extends AppCompatActivity {
         profilePhoto = findViewById(R.id.imgCommentsProfilePhoto);
         txtPost = findViewById(R.id.txtSendComment);
 
+        recyclerView = findViewById(R.id.recyclerViewComments);
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        commentList = new ArrayList<>();
+        commentAdapter = new CommentAdapter(this,commentList);
+        recyclerView.setAdapter(commentAdapter);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Comments");
@@ -69,6 +88,7 @@ public class CommentsActivity extends AppCompatActivity {
             }
         });
         getImage();
+        readComments();
     }
     public void addComment(){
         DatabaseReference referenceComment = FirebaseDatabase.getInstance().getReference("Comments").child("postID");
@@ -86,6 +106,25 @@ public class CommentsActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
                 Glide.with(getApplicationContext()).load(user.getPhotoURL()).into(profilePhoto);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    private void readComments(){
+        DatabaseReference readCommentReference = FirebaseDatabase.getInstance().getReference("Comments").child(postID);
+        readCommentReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                commentList.clear();
+                for (DataSnapshot snapshot2: snapshot.getChildren()){
+                    Comment comment = snapshot.getValue(Comment.class);
+                    commentList.add(comment);
+                }
+                commentAdapter.notifyDataSetChanged();
             }
 
             @Override

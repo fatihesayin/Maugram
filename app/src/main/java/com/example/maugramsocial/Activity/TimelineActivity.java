@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -32,6 +33,15 @@ public class TimelineActivity extends AppCompatActivity {
         ProfileFragment profileFragment = new ProfileFragment();
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        Bundle intent = getIntent().getExtras();
+        if (intent != null) {
+            String sender = intent.getString("senderID");
+            SharedPreferences.Editor editor = getSharedPreferences("PREFS",MODE_PRIVATE).edit();
+            editor.putString("profileID",sender);
+            getSupportFragmentManager().beginTransaction().replace(R.id.timeLineFrameLayout,new ProfileFragment()).commit();
+        }
+        else
+            getSupportFragmentManager().beginTransaction().replace(R.id.timeLineFrameLayout,new HomeFragment()).commit();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.timeLineFrameLayout,homeFragment).commit();
 
