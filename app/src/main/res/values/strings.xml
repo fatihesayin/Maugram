@@ -26,6 +26,9 @@
     <string name="navigationMyProfileText">My Profile</string>
     <string name="navigationAddPhotoText">Add</string>
 
+    <string name="commentText">Type your comment here</string>
+    <string name="commentSendButtonText">SEND</string>
+
     <string-array name="faculties">
         <item>Faculty of Education</item>
         <item>Faculty of Fine Arts</item>

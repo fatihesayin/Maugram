@@ -1,6 +1,7 @@
 package com.example.maugramsocial.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.maugramsocial.Activity.CommentsActivity;
 import com.example.maugramsocial.Model.Post;
 import com.example.maugramsocial.Model.User;
 import com.example.maugramsocial.R;
@@ -64,6 +66,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         senderInfo(holder.profile_photo,holder.txt_Username,holder.txt_Sender, post.getPostUser());
         liked(post.getPostId(), holder.image_like);
         likeCount(holder.txt_Likes, post.getPostId());
+        getComments(post.getPostId(), holder.txt_Comments);
 
         holder.image_like.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +82,24 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
 
                 }
 
+            }
+        });
+        holder.image_comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, CommentsActivity.class);
+                intent.putExtra("postID",post.getPostId());
+                intent.putExtra("commentSenderID",post.getPostUser());
+                mContext.startActivity(intent);
+            }
+        });
+        holder.txt_Comments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, CommentsActivity.class);
+                intent.putExtra("postID",post.getPostId());
+                intent.putExtra("commentSenderID",post.getPostUser());
+                mContext.startActivity(intent);
             }
         });
     }
@@ -110,7 +131,20 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
             txt_Comments=itemView.findViewById(R.id.txt_comments_Post_Element);
         }
     }
+    private void getComments(String postID,TextView comments){
+        DatabaseReference referenceGettingComments = FirebaseDatabase.getInstance().getReference("Comments").child(postID);
+        referenceGettingComments.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                comments.setText("See all "+ snapshot.getChildrenCount()+" comments");
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
     private void liked(String postId, ImageView imageView){
         FirebaseUser currentFU = FirebaseAuth.getInstance().getCurrentUser();
 

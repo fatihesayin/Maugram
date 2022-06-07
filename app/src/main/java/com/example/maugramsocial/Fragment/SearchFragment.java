@@ -67,7 +67,6 @@ public class SearchFragment extends Fragment {
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
-
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 userSearch(charSequence.toString().toLowerCase());
@@ -128,7 +127,6 @@ public class SearchFragment extends Fragment {
             }
         });
     }
-
     private void readUsers(){
         DatabaseReference userPath = FirebaseDatabase.getInstance().getReference("Users");
 
@@ -146,7 +144,6 @@ public class SearchFragment extends Fragment {
                 }
 
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
