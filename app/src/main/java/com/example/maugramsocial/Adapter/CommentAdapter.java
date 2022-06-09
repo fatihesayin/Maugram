@@ -31,11 +31,15 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
     private Context mContext;
     private List<Comment> mCommentList;
-    private FirebaseUser fUser;
+    FirebaseUser fUser;
 
     public CommentAdapter(Context mContext, List<Comment> mCommentList) {
         this.mContext = mContext;
         this.mCommentList = mCommentList;
+    }
+
+    public CommentAdapter(){
+        //Default Constructor
     }
 
     @NonNull
@@ -92,8 +96,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
-                Glide.with(mContext).load(Objects.requireNonNull(user).getPhotoURL()).into(imageView);
-                userName.setText(user.getFullName());
+                Glide.with(mContext).load(user.getPhotoURL()).into(imageView);
+                userName.setText(user.getUserName());
             }
 
             @Override

@@ -33,6 +33,7 @@ public class TimelineActivity extends AppCompatActivity {
         ProfileFragment profileFragment = new ProfileFragment();
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
+
         Bundle intent = getIntent().getExtras();
         if (intent != null) {
             String sender = intent.getString("senderID");
@@ -44,7 +45,6 @@ public class TimelineActivity extends AppCompatActivity {
         else
             getSupportFragmentManager().beginTransaction().replace(R.id.timeLineFrameLayout,new HomeFragment()).commit();
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.timeLineFrameLayout,homeFragment).commit();
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -73,5 +73,6 @@ public class TimelineActivity extends AppCompatActivity {
             }
 
         });
+
     }
 }

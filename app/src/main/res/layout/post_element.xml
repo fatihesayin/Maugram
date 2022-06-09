@@ -40,13 +40,14 @@
                 android:src="@drawable/ic_like_border"
                 android:layout_width="30dp"
                 android:layout_height="30dp"/>
+
             <ImageView
                 android:id="@+id/comment_Post_Element"
-                android:src="@drawable/ic_comment_"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:layout_marginStart="10dp"
                 android:layout_toEndOf="@id/like_Post_Element"
-                android:layout_marginStart="10dp"/>
+                android:src="@drawable/ic_comment_" />
             <ImageView
                 android:id="@+id/saved_Post_Element"
                 android:src="@drawable/ic_saved"

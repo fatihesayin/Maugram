@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -76,13 +77,13 @@ public class CommentsActivity extends AppCompatActivity {
         fUser = FirebaseAuth.getInstance().getCurrentUser();
         Intent intent = getIntent();
         postID = intent.getStringExtra("postID");
-        commentSenderID = intent.getStringExtra("commentSenderID");
+        commentSenderID = intent.getStringExtra("senderID");
 
         txtPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(editAddComment.getText().toString().equals("")){
-                    Toast.makeText(getApplicationContext(),"You have to type something!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CommentsActivity.this,"You have to type something!",Toast.LENGTH_SHORT).show();
                 }
                 else
                     addComment();
@@ -92,12 +93,12 @@ public class CommentsActivity extends AppCompatActivity {
         readComments();
     }
     public void addComment(){
-        DatabaseReference referenceComment = FirebaseDatabase.getInstance().getReference("Comments").child("postID");
+        DatabaseReference referenceComment = FirebaseDatabase.getInstance().getReference("Comments").child(postID);
         HashMap<String,Object> hashMap = new HashMap<>();
         hashMap.put("comment",editAddComment.getText().toString());
         hashMap.put("sender",fUser.getUid());
 
-        referenceComment.setValue(hashMap);
+        referenceComment.push().setValue(hashMap);
         editAddComment.setText("");
     }
     public void getImage(){
@@ -121,7 +122,7 @@ public class CommentsActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 commentList.clear();
-                for (DataSnapshot snapshot2: snapshot.getChildren()){
+                for(DataSnapshot snapshot2: snapshot.getChildren()){
                     Comment comment = snapshot2.getValue(Comment.class);
                     commentList.add(comment);
                 }

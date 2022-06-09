@@ -13,18 +13,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/profilePhotoCommentElement">
-    <TextView
-        android:id="@+id/txtUsernameCommentElement"
-        android:text="@string/contentDescriptionInEditUserName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"/>
-    <TextView
-        android:id="@+id/txtCommentCommentElement"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:maxLines="5"
-        android:text="Comments will be seen here"/>
+        <TextView
+            android:id="@+id/txtUsernameCommentElement"
+            android:text="@string/contentDescriptionInEditUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/txtCommentCommentElement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="5"
+            android:text="Comments will be seen here"/>
 
     </LinearLayout>
 

@@ -89,7 +89,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, CommentsActivity.class);
                 intent.putExtra("postID",post.getPostId());
-                intent.putExtra("commentSenderID",post.getPostUser());
+                intent.putExtra("senderID",post.getPostUser());
                 mContext.startActivity(intent);
             }
         });
@@ -98,7 +98,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, CommentsActivity.class);
                 intent.putExtra("postID",post.getPostId());
-                intent.putExtra("commentSenderID",post.getPostUser());
+                intent.putExtra("senderID",post.getPostUser());
                 mContext.startActivity(intent);
             }
         });
