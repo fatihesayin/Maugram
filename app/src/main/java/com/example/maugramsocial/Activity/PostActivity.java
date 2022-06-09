@@ -30,6 +30,7 @@ import com.theartofdev.edmodo.cropper.CropImage;
 
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class PostActivity extends AppCompatActivity {
 
@@ -92,9 +93,7 @@ public class PostActivity extends AppCompatActivity {
                     if (!task.isSuccessful()){
                         throw task.getException();
                     }
-
                     return fileUrl.getDownloadUrl();
-
                 }
             }).addOnCompleteListener(new OnCompleteListener<Uri>() {
                 @Override
@@ -112,9 +111,11 @@ public class PostActivity extends AppCompatActivity {
                         hashMap.put("postId", postId);
                         hashMap.put("postImage", myUri);
                         hashMap.put("postAbout", edt_about_post.getText().toString());
-                        hashMap.put("postUser", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                        hashMap.put("postUser", Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
 
-                        dataPath.child(postId).setValue(hashMap);
+                        if (postId != null) {
+                            dataPath.child(postId).setValue(hashMap);
+                        }
 
                         loadingDialog.stopLoadingDialog();
 
@@ -145,8 +146,7 @@ public class PostActivity extends AppCompatActivity {
 
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK){
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            imageUri = result.getUri();
-
+            imageUri = Objects.requireNonNull(result).getUri();
             image_Posted.setImageURI(imageUri);
         }
         else{

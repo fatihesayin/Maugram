@@ -48,9 +48,9 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         fUser = FirebaseAuth.getInstance().getCurrentUser();
-        Comment comment = mCommentList.get(position);
+        final Comment comment = mCommentList.get(position);
         holder.txtComment.setText(comment.getComment());
-        getUserInformation(holder.profilePhoto, holder.txtComment, comment.getSender());
+        getUserInformation(holder.profilePhoto, holder.txtUsername, comment.getSender());
 
         holder.txtComment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,22 +78,22 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         public ImageView profilePhoto;
-        public TextView txtUser,txtComment;
+        public TextView txtUsername,txtComment;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             profilePhoto = itemView.findViewById(R.id.profilePhotoCommentElement);
-            txtUser = itemView.findViewById(R.id.txtUsernameCommentElement);
+            txtUsername = itemView.findViewById(R.id.txtUsernameCommentElement);
             txtComment = itemView.findViewById(R.id.txtCommentCommentElement);
         }
     }
-    private void getUserInformation(ImageView imageView,TextView userName, String senderID){
+    private void getUserInformation(final ImageView imageView,final TextView userName, String senderID){
         DatabaseReference senderReference = FirebaseDatabase.getInstance().getReference().child("Users").child(senderID);
         senderReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
                 Glide.with(mContext).load(Objects.requireNonNull(user).getPhotoURL()).into(imageView);
-                userName.setText(user.getUserName());
+                userName.setText(user.getFullName());
             }
 
             @Override

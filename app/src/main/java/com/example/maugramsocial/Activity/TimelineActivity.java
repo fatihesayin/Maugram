@@ -38,6 +38,7 @@ public class TimelineActivity extends AppCompatActivity {
             String sender = intent.getString("senderID");
             SharedPreferences.Editor editor = getSharedPreferences("PREFS",MODE_PRIVATE).edit();
             editor.putString("profileID",sender);
+            editor.apply();
             getSupportFragmentManager().beginTransaction().replace(R.id.timeLineFrameLayout,new ProfileFragment()).commit();
         }
         else

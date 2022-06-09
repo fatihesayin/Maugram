@@ -54,15 +54,6 @@ public class CommentsActivity extends AppCompatActivity {
         profilePhoto = findViewById(R.id.imgCommentsProfilePhoto);
         txtPost = findViewById(R.id.txtSendComment);
 
-        recyclerView = findViewById(R.id.recyclerViewComments);
-        recyclerView.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(linearLayoutManager);
-
-        commentList = new ArrayList<>();
-        commentAdapter = new CommentAdapter(this,commentList);
-        recyclerView.setAdapter(commentAdapter);
-
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Comments");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -72,6 +63,16 @@ public class CommentsActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        recyclerView = findViewById(R.id.recyclerViewComments);
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        commentList = new ArrayList<>();
+        commentAdapter = new CommentAdapter(this,commentList);
+        recyclerView.setAdapter(commentAdapter);
+
         fUser = FirebaseAuth.getInstance().getCurrentUser();
         Intent intent = getIntent();
         postID = intent.getStringExtra("postID");
@@ -121,7 +122,7 @@ public class CommentsActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 commentList.clear();
                 for (DataSnapshot snapshot2: snapshot.getChildren()){
-                    Comment comment = snapshot.getValue(Comment.class);
+                    Comment comment = snapshot2.getValue(Comment.class);
                     commentList.add(comment);
                 }
                 commentAdapter.notifyDataSetChanged();
