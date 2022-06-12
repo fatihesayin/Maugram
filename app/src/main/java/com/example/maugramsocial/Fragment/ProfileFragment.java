@@ -6,6 +6,9 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.ContactsContract;
 import android.util.Log;
@@ -18,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.maugramsocial.Adapter.MyPhotoAdapter;
 import com.example.maugramsocial.Model.Post;
 import com.example.maugramsocial.Model.User;
 import com.example.maugramsocial.R;
@@ -29,18 +33,23 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class ProfileFragment extends Fragment {
 
     ImageView imgOptions, profilePhoto;
-
     TextView txt_Posts, txt_Followers, txt_Followings, txt_Name, txt_Bio, txt_Username;
-
     Button btn_Edit_Profile;
-
     ImageButton imgbtn_MyPhotos, imgbtn_SavedPosts;
 
     FirebaseUser fUser;
     String profileId;
+
+    RecyclerView recyclerViewPhotos;
+    MyPhotoAdapter myPhotoAdapter;
+    List<Post> postList;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -69,13 +78,20 @@ public class ProfileFragment extends Fragment {
         txt_Username= view.findViewById(R.id.txt_username_profileFragment);
 
         btn_Edit_Profile = view.findViewById(R.id.btn_editProfile_profileFragment);
-
         imgbtn_MyPhotos = view.findViewById(R.id.imgbtn_photos_profileFragment);
         imgbtn_SavedPosts = view.findViewById(R.id.imgbtn_savedPhotos_profileFragment);
 
+        recyclerViewPhotos = view.findViewById(R.id.recycler_view_profileFragment);
+        recyclerViewPhotos.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new GridLayoutManager(getContext(),3);
+        recyclerViewPhotos.setLayoutManager(linearLayoutManager);
+        postList= new ArrayList<>();
+        myPhotoAdapter = new MyPhotoAdapter(getContext(),postList);
+        recyclerViewPhotos.setAdapter(myPhotoAdapter);
         userInfo();
         followCount();
         postCount();
+        myPhotos();
 
         if (profileId.equals(fUser.getUid())){
 
@@ -210,6 +226,27 @@ public class ProfileFragment extends Fragment {
                 }
                 txt_Posts.setText(""+i);
             }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    private void myPhotos(){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot snapshot3:snapshot.getChildren()){
+                    Post post = snapshot3.getValue(Post.class);
+                    if (post.getPostUser().equals(profileId)){
+                        postList.add(post);
+                    }
+                }
+                Collections.reverse(postList);
+                myPhotoAdapter.notifyDataSetChanged();
+            }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
