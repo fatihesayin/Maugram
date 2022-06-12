@@ -16,16 +16,20 @@ import com.example.maugramsocial.Fragment.SearchFragment;
 import com.example.maugramsocial.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class TimelineActivity extends AppCompatActivity {
 
-
+    FirebaseUser fUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
         BottomNavigationView bottomNavigationView;
+
+        fUser = FirebaseAuth.getInstance().getCurrentUser();
 
         HomeFragment homeFragment = new HomeFragment();
         SearchFragment searchFragment = new SearchFragment();

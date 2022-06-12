@@ -74,11 +74,11 @@ public class ProfileFragment extends Fragment {
         imgbtn_SavedPosts = view.findViewById(R.id.imgbtn_savedPhotos_profileFragment);
 
         userInfo();
-        followControl();
         followCount();
         postCount();
 
         if (profileId.equals(fUser.getUid())){
+
             btn_Edit_Profile.setText("Edit Profile");
         }
         else
@@ -92,10 +92,10 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
                 String btn = btn_Edit_Profile.getText().toString();
 
-                //if (btn.equals("Edit Profile")){
-                    //profili düzenle
-                //}
-                if (btn.equals("Follow")){
+                if (btn.equals("Edit Profile")){
+                //profili düzenle
+                }
+                else if (btn.equals("Follow")){
                     //takip et
                     FirebaseDatabase.getInstance().getReference().child("Follow").child(fUser.getUid())
                             .child("Following").child(profileId).setValue(true);
@@ -145,10 +145,10 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.child(profileId).exists()){
-                    btn_Edit_Profile.setTag("Following");
+                    btn_Edit_Profile.setText("Following");
                 }
                 else {
-                    btn_Edit_Profile.setTag("Follow");
+                    btn_Edit_Profile.setText("Follow");
                 }
             }
 
