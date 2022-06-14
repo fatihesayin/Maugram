@@ -51,15 +51,83 @@
                     android:id="@+id/close"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="10dp"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
                     android:src="@drawable/ic_close" />
             </RelativeLayout>
 
         </androidx.appcompat.widget.Toolbar>
-
     </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/editImageProfile"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@mipmap/ic_launcher"
+            android:layout_gravity="center"
+            android:layout_margin="10dp" />
+        <TextView
+            android:id="@+id/txtEditChangeProfilePhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Change Photo"
+            android:textSize="16dp"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textFieldNameInEditProfile"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            app:boxBackgroundColor="@color/white"
+            app:startIconContentDescription="@string/contentDescriptionInEditTextName">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputNameInEditProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:hint="@string/contentDescriptionInEditTextName"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textFieldUserNameInEditProfile"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            app:boxBackgroundColor="@color/white"
+            app:startIconContentDescription="@string/contentDescriptionInEditUserName">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputUserNameInEditProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:hint="@string/contentDescriptionInEditUserName"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textFieldBioInRegister"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            app:boxBackgroundColor="@color/white"
+            app:startIconContentDescription="@string/contentDescriptionInEditBio"
+            app:boxBackgroundMode="outline">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputBioInEditProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:inputType="textEmailAddress"
+                android:hint="@string/contentDescriptionInEditBio" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

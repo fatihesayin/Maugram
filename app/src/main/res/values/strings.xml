@@ -5,6 +5,7 @@
     <string name="contentDescriptionInEditTextConfirmPassword">Confirm Your Password</string>
     <string name="contentDescriptionInEditTextName">Full Name</string>
     <string name="contentDescriptionInEditUserName">Username</string>
+    <string name="contentDescriptionInEditBio">Bio</string>
     <string name="contentDescriptionInDropDownMenu">Departments</string>
     <string name="loginHelper">Don\'t have an account? </string>
     <string name="registerHelper">Have an account? </string>
