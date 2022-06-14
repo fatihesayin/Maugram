@@ -110,9 +110,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
             public void onClick(View v) {
 
                 SharedPreferences.Editor editor = mContext.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit();
-                editor.putString("id", post.getPostUser());
+                editor.putString("postId", post.getPostUser());
                 editor.apply();
-                ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.action_container,
+                ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.timeLineFrameLayout,
                         new ProfileFragment()).commit();
 
             }
@@ -123,9 +123,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
             public void onClick(View v) {
 
                 SharedPreferences.Editor editor = mContext.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit();
-                editor.putString("id", post.getPostUser());
+                editor.putString("postId", post.getPostUser());
                 editor.apply();
-                ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.action_container,
+                ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.timeLineFrameLayout,
                         new ProfileFragment()).commit();
 
             }
@@ -136,9 +136,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
             public void onClick(View v) {
 
                 SharedPreferences.Editor editor = mContext.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit();
-                editor.putString("id", post.getPostUser());
+                editor.putString("postId", post.getPostUser());
                 editor.apply();
-                ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.action_container,
+                ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.timeLineFrameLayout,
                         new ProfileFragment()).commit();
 
             }
@@ -152,7 +152,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
                 editor.putString("postId", post.getPostId());
                 editor.apply();
                 ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.timeLineFrameLayout, new PostDetailsFragment()).commit();
+                        .replace(R.id.timeLineFrameLayout, new ProfileFragment()).commit();
+
             }
         });
 
