@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/postDetailsFragment"
     tools:context=".Fragment.PostDetailsFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -27,19 +28,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                 </TextView>
-
-
             </RelativeLayout>
-
         </androidx.appcompat.widget.Toolbar>
-
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_postDetailsFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/bar_postDetailsFragment"
-        android:id="@+id/recycler_view_postDetailsFragment">
+        android:layout_below="@+id/bar_postDetailsFragment">
 
     </androidx.recyclerview.widget.RecyclerView>
 

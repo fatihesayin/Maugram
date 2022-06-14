@@ -41,7 +41,6 @@ public class PostDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_post_details,container,false);
 
         SharedPreferences preferences = getContext().getSharedPreferences("PREFS", Context.MODE_PRIVATE);

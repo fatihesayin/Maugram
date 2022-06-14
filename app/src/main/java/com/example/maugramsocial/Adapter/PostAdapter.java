@@ -46,9 +46,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View view = LayoutInflater.from(mContext).inflate(R.layout.post_element, parent, false);
-
         return new PostAdapter.ViewHolder(view);
     }
 
@@ -57,9 +55,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         currentFU = FirebaseAuth.getInstance().getCurrentUser();
 
         Post post = mPosts.get(position);
-
         Glide.with(mContext).load(post.getPostImage()).into(holder.post_photo);
-
         if (post.getPostAbout().equals("")){
             holder.txt_Postabout.setVisibility(View.GONE);
         }
@@ -153,15 +149,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
             public void onClick(View v) {
 
                 SharedPreferences.Editor editor = mContext.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit();
-                Log.i("msg", "0. bölge");
-                editor.putString("postId", post.getPostUser());
-                Log.i("msg", "1. bölge");
+                editor.putString("postId", post.getPostId());
                 editor.apply();
-                Log.i("msg", "2. bölge");
-                ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.timeLineFrameLayout,
-                        new PostDetailsFragment()).commit();
-                Log.i("msg", "3. bölge");
-
+                ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.timeLineFrameLayout, new PostDetailsFragment()).commit();
             }
         });
 
