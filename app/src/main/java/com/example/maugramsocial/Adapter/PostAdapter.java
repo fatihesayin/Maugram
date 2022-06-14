@@ -3,6 +3,7 @@ package com.example.maugramsocial.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -152,10 +153,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
             public void onClick(View v) {
 
                 SharedPreferences.Editor editor = mContext.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit();
+                Log.i("msg", "0. bölge");
                 editor.putString("postId", post.getPostUser());
+                Log.i("msg", "1. bölge");
                 editor.apply();
-                ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.action_container,
+                Log.i("msg", "2. bölge");
+                ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.timeLineFrameLayout,
                         new PostDetailsFragment()).commit();
+                Log.i("msg", "3. bölge");
 
             }
         });
