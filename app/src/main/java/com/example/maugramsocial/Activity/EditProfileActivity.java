@@ -8,6 +8,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
@@ -67,7 +68,7 @@ LoadingDialog loadingDialog;
         txtSave = findViewById(R.id.txtSaveInEditProfile);
 
         fUser = FirebaseAuth.getInstance().getCurrentUser();
-        storageReference = FirebaseStorage.getInstance().getReference("Uploads");
+        storageReference = FirebaseStorage.getInstance().getReference("ProfilePhotos");
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(fUser.getUid());
 
         reference.addValueEventListener(new ValueEventListener() {
@@ -95,14 +96,14 @@ LoadingDialog loadingDialog;
             @Override
             public void onClick(View v) {
                 CropImage.activity().setAspectRatio(1,1)
-                        .setCropShape(CropImageView.CropShape.OVAL).start(EditProfileActivity.this);
+                        .start(EditProfileActivity.this);
             }
         });
         txtChangePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CropImage.activity().setAspectRatio(1,1)
-                        .setCropShape(CropImageView.CropShape.OVAL).start(EditProfileActivity.this);
+                        .start(EditProfileActivity.this);
             }
         });
         txtSave.setOnClickListener(new View.OnClickListener() {
@@ -130,6 +131,7 @@ LoadingDialog loadingDialog;
         loadingDialog.startLoadingDialog();
         if (imageUri != null){
             StorageReference fileReference = storageReference.child(System.currentTimeMillis()+"."+getFileExtension(imageUri));
+
             uploadTask = fileReference.putFile(imageUri);
             uploadTask.continueWithTask(new Continuation() {
                 @Override
@@ -147,8 +149,9 @@ LoadingDialog loadingDialog;
                         String myUrl = downloadUri.toString();
 
                         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(fUser.getUid());
+
                         HashMap<String,Object> hashMap = new HashMap<>();
-                        hashMap.put("photourl",""+myUrl);
+                        hashMap.put("photourl", myUrl);
                         reference.updateChildren(hashMap);
                         loadingDialog.stopLoadingDialog();
 

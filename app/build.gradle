@@ -8,8 +8,8 @@ android {
 
     defaultConfig {
         applicationId "com.example.maugramsocial"
-        minSdk 28
-        targetSdk 31
+        minSdk 27
+        targetSdk 27
         versionCode 1
         versionName "1.0"
 

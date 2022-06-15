@@ -53,7 +53,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         currentFU = FirebaseAuth.getInstance().getCurrentUser();
-
         Post post = mPosts.get(position);
         Glide.with(mContext).load(post.getPostImage()).into(holder.post_photo);
         if (post.getPostAbout().equals("")){
