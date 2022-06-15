@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.maugramsocial.Activity.EditProfileActivity;
+import com.example.maugramsocial.Activity.OptionsActivity;
 import com.example.maugramsocial.Adapter.MyPhotoAdapter;
 import com.example.maugramsocial.Model.Post;
 import com.example.maugramsocial.Model.User;
@@ -144,6 +145,13 @@ public class ProfileFragment extends Fragment {
                             .child("Follower").child(fUser.getUid()).removeValue();
                 }
 
+            }
+        });
+        imgOptions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentToOptions = new Intent(getContext(), OptionsActivity.class);
+                startActivity(intentToOptions);
             }
         });
         imgbtn_MyPhotos.setOnClickListener(new View.OnClickListener() {

@@ -29,6 +29,7 @@
         <entry key="..\:/Users/lenovo/Desktop/MaugramSocial/app/src/main/res/layout/activity_edit_profile.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/lenovo/Desktop/MaugramSocial/app/src/main/res/layout/activity_login.xml" value="0.16799999999999998" />
         <entry key="..\:/Users/lenovo/Desktop/MaugramSocial/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/lenovo/Desktop/MaugramSocial/app/src/main/res/layout/activity_options.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/lenovo/Desktop/MaugramSocial/app/src/main/res/layout/activity_post.xml" value="0.264" />
         <entry key="..\:/Users/lenovo/Desktop/MaugramSocial/app/src/main/res/layout/activity_register.xml" value="0.25" />
         <entry key="..\:/Users/lenovo/Desktop/MaugramSocial/app/src/main/res/layout/activity_timeline.xml" value="0.24682971014492755" />
@@ -50,7 +51,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
