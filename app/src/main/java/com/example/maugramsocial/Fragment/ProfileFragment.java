@@ -1,6 +1,7 @@
 package com.example.maugramsocial.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -21,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.maugramsocial.Activity.EditProfileActivity;
 import com.example.maugramsocial.Adapter.MyPhotoAdapter;
 import com.example.maugramsocial.Model.Post;
 import com.example.maugramsocial.Model.User;
@@ -112,7 +114,6 @@ public class ProfileFragment extends Fragment {
         mySaves();
 
         if (profileId.equals(fUser.getUid())){
-
             btn_Edit_Profile.setText("Edit Profile");
         }
         else
@@ -127,7 +128,7 @@ public class ProfileFragment extends Fragment {
                 String btn = btn_Edit_Profile.getText().toString();
 
                 if (btn.equals("Edit Profile")){
-                //profili düzenle
+                    startActivity(new Intent(getContext(),EditProfileActivity.class));
                 }
                 else if (btn.equals("Follow")){
                     //takip et

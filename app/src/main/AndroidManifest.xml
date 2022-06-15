@@ -17,6 +17,9 @@
             android:name=".Activity.CommentsActivity"
             android:exported="true" />
         <activity
+            android:name=".Activity.EditProfileActivity"
+            android:exported="true" />
+        <activity
             android:name=".Activity.PostActivity"
             android:exported="true" />
         <activity
