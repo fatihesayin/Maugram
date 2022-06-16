@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.maugramsocial.Activity.CommentsActivity;
+import com.example.maugramsocial.Activity.FollowersActivity;
 import com.example.maugramsocial.Fragment.PostDetailsFragment;
 import com.example.maugramsocial.Fragment.ProfileFragment;
 import com.example.maugramsocial.Model.Post;
@@ -83,6 +84,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
 
                 }
 
+            }
+        });
+
+        holder.txt_Likes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, FollowersActivity.class);
+
+                intent.putExtra("postId", post.getPostId());
+                intent.putExtra("title", "Likes");
+                mContext.startActivity(intent);
             }
         });
         holder.image_comment.setOnClickListener(new View.OnClickListener() {

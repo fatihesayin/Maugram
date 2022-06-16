@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.maugramsocial.Activity.EditProfileActivity;
+import com.example.maugramsocial.Activity.FollowersActivity;
 import com.example.maugramsocial.Activity.OptionsActivity;
 import com.example.maugramsocial.Adapter.MyPhotoAdapter;
 import com.example.maugramsocial.Model.Post;
@@ -122,6 +123,28 @@ public class ProfileFragment extends Fragment {
             followControl();
             imgbtn_SavedPosts.setVisibility(View.GONE);
         }
+
+        txt_Followers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), FollowersActivity.class);
+
+                intent.putExtra("id", profileId);
+                intent.putExtra("title", "Followers");
+                startActivity(intent);
+            }
+        });
+
+        txt_Followings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), FollowersActivity.class);
+
+                intent.putExtra("id", profileId);
+                intent.putExtra("title", "Following");
+                startActivity(intent);
+            }
+        });
 
         btn_Edit_Profile.setOnClickListener(new View.OnClickListener() {
             @Override

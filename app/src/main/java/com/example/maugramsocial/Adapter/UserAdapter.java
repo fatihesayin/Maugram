@@ -1,6 +1,7 @@
 package com.example.maugramsocial.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.maugramsocial.Activity.TimelineActivity;
 import com.example.maugramsocial.Model.User;
 import com.example.maugramsocial.Fragment.ProfileFragment;
 import com.example.maugramsocial.R;
@@ -35,10 +37,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
 
     private FirebaseUser fUser;
 
+    private Boolean isFragments;
 
-    public UserAdapter(Context mContext, List<User> mUsers) {
+
+    public UserAdapter(Context mContext, List<User> mUsers, boolean isFragments) {
         this.mContext = mContext;
         this.mUsers = mUsers;
+        this.isFragments = isFragments;
     }
 
     @NonNull
@@ -64,12 +69,20 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
             viewHolder.btnFollow.setVisibility(View.GONE);
         }
         viewHolder.itemView.setOnClickListener(v -> {
-            SharedPreferences.Editor editor = mContext.getSharedPreferences("PREFS",Context.MODE_PRIVATE).edit();
-            editor.putString("id", user.getId());
-            editor.apply();
 
-            ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.timeLineFrameLayout,new ProfileFragment()).commit();
+            if (isFragments) {
+                SharedPreferences.Editor editor = mContext.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit();
+                editor.putString("id", user.getId());
+                editor.apply();
+
+                ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.timeLineFrameLayout, new ProfileFragment()).commit();
+            }
+            else {
+                Intent intent = new Intent(mContext, TimelineActivity.class);
+                intent.putExtra("publisherId", user.getId());
+                mContext.startActivity(intent);
+            }
         });
 
         viewHolder.btnFollow.setOnClickListener(new View.OnClickListener() {
