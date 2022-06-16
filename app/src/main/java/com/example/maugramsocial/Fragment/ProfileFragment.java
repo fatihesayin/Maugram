@@ -205,6 +205,7 @@ public class ProfileFragment extends Fragment {
                 }
                 User user = snapshot.getValue(User.class);
 
+                Log.i("msg", String.valueOf(user));
                 Glide.with(getContext()).load(user.getPhotoURL()).into(profilePhoto);
                 txt_Username.setText(user.getUserName());
                 txt_Name.setText(user.getFullName());
