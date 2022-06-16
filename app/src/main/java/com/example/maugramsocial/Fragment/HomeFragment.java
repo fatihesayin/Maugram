@@ -14,7 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.maugramsocial.Adapter.PostAdapter;
+import com.example.maugramsocial.Adapter.StoryAdapter;
 import com.example.maugramsocial.Model.Post;
+import com.example.maugramsocial.Model.Story;
 import com.example.maugramsocial.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -32,6 +34,9 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
     private PostAdapter postAdapter;
     private List<Post> postList;
+    private RecyclerView recyclerView_story;
+    private StoryAdapter storyAdapter;
+    private List<Story> storyList;
 
     private List<String> followList;
 
@@ -50,6 +55,15 @@ public class HomeFragment extends Fragment {
         linearLayoutManager.setReverseLayout(true);
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
+
+        recyclerView_story = view.findViewById(R.id.recycler_Story);
+        recyclerView_story.setHasFixedSize(true);
+        LinearLayoutManager layoutManagerStory = new LinearLayoutManager(getContext(),
+                LinearLayoutManager.HORIZONTAL, false);
+        recyclerView_story.setLayoutManager(layoutManagerStory);
+        storyList = new ArrayList<>();
+        storyAdapter = new StoryAdapter(getContext(),storyList);
+        recyclerView_story.setAdapter(storyAdapter);
 
         postList = new ArrayList<>();
 
@@ -77,6 +91,7 @@ public class HomeFragment extends Fragment {
                 }
 
                 postReader();
+                readyStory();
             }
 
             @Override
@@ -103,6 +118,38 @@ public class HomeFragment extends Fragment {
                     }
                 }
                 postAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    public void readyStory(){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Story");
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                long currentTime = System.currentTimeMillis();
+                storyList.clear();
+                storyList.add(new Story("",0,0,"", FirebaseAuth.getInstance()
+                        .getCurrentUser().getUid()));
+                for (String id : followList){
+                    int countStory=0;
+                    Story story = null;
+                    for (DataSnapshot dataSnapshot : snapshot.child(id).getChildren()){
+                        story = dataSnapshot.getValue(Story.class);
+                        if (currentTime > story.getTimeStart() && currentTime < story.getTimeEnd()){
+                            countStory++;
+                        }
+                    }
+                    if (countStory > 0){
+                        storyList.add(story);
+                    }
+                }
+                storyAdapter.notifyDataSetChanged();
             }
 
             @Override
