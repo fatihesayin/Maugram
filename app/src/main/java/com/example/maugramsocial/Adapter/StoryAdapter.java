@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.maugramsocial.Activity.AddStoryActivity;
+import com.example.maugramsocial.Activity.StoryActivity;
 import com.example.maugramsocial.Model.Story;
 import com.example.maugramsocial.Model.User;
 import com.example.maugramsocial.R;
@@ -68,6 +70,9 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder>{
                     myStory(holder.addStoryText, holder.storyPlus, true);
                 }
                 else{
+                    Intent intent = new Intent(mContext, StoryActivity.class);
+                    intent.putExtra("storyId",story.getUserId());
+                    mContext.startActivity(intent);
 
                 }
             }
@@ -148,7 +153,12 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder>{
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-
+                                        Intent intent = new Intent(mContext, StoryActivity.class);
+                                        intent.putExtra("storyId",
+                                                FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                        Log.i("msg", String.valueOf(intent));
+                                        mContext.startActivity(intent);
+                                        dialog.dismiss();
                                     }
                                   });
 
