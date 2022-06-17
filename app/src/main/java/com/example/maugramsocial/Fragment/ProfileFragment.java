@@ -76,6 +76,16 @@ public class ProfileFragment extends Fragment {
         SharedPreferences prefs = getContext().getSharedPreferences("PREFS", Context.MODE_PRIVATE);
         profileId = prefs.getString("id", "none");
 
+
+        //Showing posts in profile fragment
+        recyclerViewPhotos = view.findViewById(R.id.recycler_view_profileFragment);
+        recyclerViewPhotos.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new GridLayoutManager(getContext(),3);
+        recyclerViewPhotos.setLayoutManager(linearLayoutManager);
+        postList= new ArrayList<>();
+        myPhotoAdapter = new MyPhotoAdapter(getContext(),postList);
+        recyclerViewPhotos.setAdapter(myPhotoAdapter);
+
         imgOptions = view.findViewById(R.id.options_profileFragment);
         profilePhoto = view.findViewById(R.id.profile_photo_profileFragment);
 
@@ -89,15 +99,6 @@ public class ProfileFragment extends Fragment {
         btn_Edit_Profile = view.findViewById(R.id.btn_editProfile_profileFragment);
         imgbtn_MyPhotos = view.findViewById(R.id.imgbtn_photos_profileFragment);
         imgbtn_SavedPosts = view.findViewById(R.id.imgbtn_savedPhotos_profileFragment);
-
-        //Showing posts in profile fragment
-        recyclerViewPhotos = view.findViewById(R.id.recycler_view_profileFragment);
-        recyclerViewPhotos.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new GridLayoutManager(getContext(),3);
-        recyclerViewPhotos.setLayoutManager(linearLayoutManager);
-        postList= new ArrayList<>();
-        myPhotoAdapter = new MyPhotoAdapter(getContext(),postList);
-        recyclerViewPhotos.setAdapter(myPhotoAdapter);
 
         //Saving posts seen in profile fragment
         recyclerViewSaves = view.findViewById(R.id.recycler_view_saved_profileFragment);
@@ -205,7 +206,6 @@ public class ProfileFragment extends Fragment {
                 }
                 User user = snapshot.getValue(User.class);
 
-                Log.i("msg", String.valueOf(user));
                 Glide.with(getContext()).load(user.getPhotoURL()).into(profilePhoto);
                 txt_Username.setText(user.getUserName());
                 txt_Name.setText(user.getFullName());
