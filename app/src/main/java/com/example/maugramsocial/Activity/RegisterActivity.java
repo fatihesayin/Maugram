@@ -33,6 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
     AutoCompleteTextView facultyNames;
     DatabaseReference dbPath = FirebaseDatabase.getInstance().getReferenceFromUrl("https://maugram-social-default-rtdb.firebaseio.com/");
     FirebaseAuth fAuth;
+    Boolean isClub = false;
 
 
     final LoadingDialog loadingDialog = new LoadingDialog(RegisterActivity.this);
@@ -110,6 +111,7 @@ public class RegisterActivity extends AppCompatActivity {
                             hashMap.put("userName", username.toLowerCase(Locale.ROOT));
                             hashMap.put("fullName", fullName);
                             hashMap.put("bio", "");
+                            hashMap.put("isClub", isClub);
                             hashMap.put("photourl", "https://firebasestorage.googleapis.com/v0/b/maugram-social.appspot.com/o/placeholder.png?alt=media&token=28e5a9ee-3b01-45d8-ac72-7b091aca3c52");
 
                             dbPath.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {

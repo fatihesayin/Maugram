@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,13 +71,16 @@ public class ClubsFragment extends Fragment {
 
         readClubs();
 
-        DatabaseReference userPath = FirebaseDatabase.getInstance().getReference("Users");
+        DatabaseReference userPath = FirebaseDatabase.getInstance().getReference().child("Users");
         userPath.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     User user = dataSnapshot.getValue(User.class);
-                    mClubs.add(user);
+                    if (dataSnapshot.child("isClub").getValue().equals(true)) {
+                        mClubs.add(user);
+                    }
+
                 }
             }
 
@@ -85,8 +89,6 @@ public class ClubsFragment extends Fragment {
 
             }
         });
-
-        readClubs();
 
         return view;
     }
@@ -98,12 +100,14 @@ public class ClubsFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mClubs.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    User user = snapshot.getValue(User.class);
-                    mClubs.add(user);
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        User user = snapshot.getValue(User.class);
+                        if (snapshot.child(user.getId()).child("isClub").equals(true)) {
+                            mClubs.add(user);
+                        }
+                    }
+                    clubAdapter.notifyDataSetChanged();
                 }
-                clubAdapter.notifyDataSetChanged();
-            }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
