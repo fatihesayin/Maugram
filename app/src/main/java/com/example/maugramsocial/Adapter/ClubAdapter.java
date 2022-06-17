@@ -43,6 +43,9 @@ public class ClubAdapter extends RecyclerView.Adapter<ClubAdapter.ViewHolder>{
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final User user = mClubs.get(position);
         holder.userName.setText(user.getUserName());
+        if (user.getBio()!=null){
+            holder.txtBio.setText(user.getBio());
+        }
         Glide.with(mContext).load(user.getPhotoURL()).into(holder.profilePhotoElement);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -64,7 +67,7 @@ public class ClubAdapter extends RecyclerView.Adapter<ClubAdapter.ViewHolder>{
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView userName;
+        public TextView userName, txtBio;
         public CircleImageView profilePhotoElement;
 
 
@@ -73,6 +76,7 @@ public class ClubAdapter extends RecyclerView.Adapter<ClubAdapter.ViewHolder>{
 
             userName = itemView.findViewById(R.id.txt_username_club_element);
             profilePhotoElement = itemView.findViewById(R.id.profile_photo_club_element);
+            txtBio = itemView.findViewById(R.id.txtBioClubElement);
         }
     }
 }

@@ -40,7 +40,7 @@ public class ClubsFragment extends Fragment {
     private List<User> mClubs;
     private String clubId;
 
-    TextView txt_Username;
+    TextView txt_Username, txt_bio;
     ImageView clubImage;
     LinearLayout linearLayout;
 
@@ -63,6 +63,7 @@ public class ClubsFragment extends Fragment {
 
         clubImage = view.findViewById(R.id.profile_photo_club_element);
         txt_Username= view.findViewById(R.id.txt_username_club_element);
+        txt_bio = view.findViewById(R.id.txtBioClubElement);
 
         linearLayout = view.findViewById(R.id.linear_layout_club_element);
 
