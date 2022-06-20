@@ -3,14 +3,12 @@ package com.example.maugramsocial.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -24,8 +22,6 @@ import com.example.maugramsocial.Fragment.ProfileFragment;
 import com.example.maugramsocial.Model.Post;
 import com.example.maugramsocial.Model.User;
 import com.example.maugramsocial.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -73,23 +69,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         likeCount(holder.txt_Likes, post.getPostId());
         getComments(post.getPostId(), holder.txt_Comments);
         isSaved(post.getPostId(), holder.image_saved);
-        postUser(currentFU.getUid(), holder.image_delete);
-
-        holder.image_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DatabaseReference deletePath = FirebaseDatabase.getInstance()
-                        .getReference("Posts").child(post.getPostId());
-                deletePath.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()){
-                            Toast.makeText(mContext, "Post Deleted", Toast.LENGTH_SHORT);
-                        }
-                    }
-                });
-            }
-        });
 
         holder.image_like.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -208,14 +187,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        public ImageView profile_photo, post_photo, image_like, image_comment, image_saved, image_delete;
+        public ImageView profile_photo, post_photo, image_like, image_comment, image_saved;
 
         public TextView txt_Username, txt_Likes, txt_Postabout, txt_Comments, txt_Sender;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            image_delete = itemView.findViewById(R.id.post_delete);
             profile_photo = itemView.findViewById(R.id.profile_photo_Post_Element);
             post_photo = itemView.findViewById(R.id.post_photo_Post_Element);
             image_like = itemView.findViewById(R.id.like_Post_Element);
@@ -243,29 +221,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
             }
         });
     }
-
-    private void postUser(String userId, ImageView imageView){
-        DatabaseReference userPath= FirebaseDatabase.getInstance().getReference("Posts");
-
-        userPath.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Post post = snapshot.getValue(Post.class);
-                if (post.getPostUser().equals(userId)){
-                    imageView.setVisibility(View.VISIBLE);
-                }
-                else {
-                    imageView.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
     private void liked(String postId, ImageView imageView){
         FirebaseUser currentFU = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -294,8 +249,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
             }
         });
     }
-
-
 
     private void likeCount(TextView likes, String postId){
         DatabaseReference likePath = FirebaseDatabase.getInstance().getReference()
