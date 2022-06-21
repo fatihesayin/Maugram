@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +37,7 @@ public class PostDetailsFragment extends Fragment {
         // Required empty public constructor
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -50,6 +50,7 @@ public class PostDetailsFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
+
 
         mPost = new ArrayList<>();
         postAdapter = new PostAdapter(getContext(), mPost);
@@ -72,6 +73,9 @@ public class PostDetailsFragment extends Fragment {
                 Post post = snapshot.getValue(Post.class);
                 mPost.add(post);
                 postAdapter.notifyDataSetChanged();
+                if (post==null)
+                    onDestroy();
+
 
             }
 
@@ -81,5 +85,11 @@ public class PostDetailsFragment extends Fragment {
             }
         });
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().getSupportFragmentManager().beginTransaction().remove((Fragment) PostDetailsFragment.this).commit();
     }
 }

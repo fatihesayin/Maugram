@@ -48,6 +48,7 @@ public class ProfileFragment extends Fragment {
     Button btn_Edit_Profile;
     ImageButton imgbtn_MyPhotos, imgbtn_SavedPosts;
 
+
     FirebaseUser fUser;
     String profileId;
 
@@ -134,6 +135,7 @@ public class ProfileFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
 
         txt_Followings.setOnClickListener(new View.OnClickListener() {
             @Override

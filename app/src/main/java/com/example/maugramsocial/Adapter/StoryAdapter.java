@@ -12,11 +12,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.maugramsocial.Activity.AddStoryActivity;
 import com.example.maugramsocial.Activity.StoryActivity;
+import com.example.maugramsocial.Fragment.HomeFragment;
+import com.example.maugramsocial.Fragment.PostDetailsFragment;
 import com.example.maugramsocial.Model.Story;
 import com.example.maugramsocial.Model.User;
 import com.example.maugramsocial.R;
@@ -117,6 +120,11 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder>{
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
                 Glide.with(mContext).load(user.getPhotoURL()).into(viewHolder.storyPhoto);
+                if (user.getPhotoURL()==null){
+                    Intent intent = new Intent(mContext.getApplicationContext(), HomeFragment.class);
+                    mContext.startActivity(intent);
+                }
+
                 if (position!=0){
                     Glide.with(mContext).load(user.getPhotoURL()).into(viewHolder.storySeen);
                     viewHolder.storyUsername.setText(user.getUserName());
@@ -225,4 +233,5 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder>{
             }
         });
     }
+
 }

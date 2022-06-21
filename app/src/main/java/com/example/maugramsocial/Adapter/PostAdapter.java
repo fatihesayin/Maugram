@@ -1,14 +1,19 @@
 package com.example.maugramsocial.Adapter;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -17,11 +22,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.maugramsocial.Activity.CommentsActivity;
 import com.example.maugramsocial.Activity.FollowersActivity;
+import com.example.maugramsocial.Activity.TimelineActivity;
 import com.example.maugramsocial.Fragment.PostDetailsFragment;
 import com.example.maugramsocial.Fragment.ProfileFragment;
+import com.example.maugramsocial.Fragment.SearchFragment;
 import com.example.maugramsocial.Model.Post;
 import com.example.maugramsocial.Model.User;
 import com.example.maugramsocial.R;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -29,8 +37,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
+import java.util.concurrent.Executor;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
 
@@ -55,6 +66,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         currentFU = FirebaseAuth.getInstance().getCurrentUser();
         Post post = mPosts.get(position);
+
         Glide.with(mContext).load(post.getPostImage()).into(holder.post_photo);
         if (post.getPostAbout().equals("")){
             holder.txt_Postabout.setVisibility(View.GONE);
@@ -69,6 +81,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         likeCount(holder.txt_Likes, post.getPostId());
         getComments(post.getPostId(), holder.txt_Comments);
         isSaved(post.getPostId(), holder.image_saved);
+        deletePost(post.getPostId(), holder.image_delete, currentFU.getUid());
 
         holder.image_like.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -178,6 +191,21 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
                     FirebaseDatabase.getInstance().getReference().child("Saves").child(currentFU.getUid()).child(post.getPostId()).removeValue();
             }
         });
+
+
+
+        holder.image_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                DatabaseReference deletePath = FirebaseDatabase.getInstance().getReference().child("Posts").child(post.getPostId());
+                deletePath.removeValue();
+                Intent intent =  new Intent(mContext.getApplicationContext(), TimelineActivity.class);
+                mContext.startActivity(intent);
+            }
+        });
+
+
     }
 
     @Override
@@ -187,7 +215,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        public ImageView profile_photo, post_photo, image_like, image_comment, image_saved;
+        public ImageView profile_photo, post_photo, image_like, image_comment, image_saved, image_delete;
 
         public TextView txt_Username, txt_Likes, txt_Postabout, txt_Comments, txt_Sender;
 
@@ -199,6 +227,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
             image_like = itemView.findViewById(R.id.like_Post_Element);
             image_comment = itemView.findViewById(R.id.comment_Post_Element);
             image_saved = itemView.findViewById(R.id.saved_Post_Element);
+            image_delete = itemView.findViewById(R.id.imgDelete);
 
             txt_Username = itemView.findViewById(R.id.txt_username_Post_Element);
             txt_Postabout = itemView.findViewById(R.id.txt_postabout_Post_Element);
@@ -206,6 +235,27 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
             txt_Likes= itemView.findViewById(R.id.txt_likes_Post_Element);
             txt_Comments=itemView.findViewById(R.id.txt_comments_Post_Element);
         }
+    }
+
+    private void deletePost(String postID,ImageView imageView, String currentUser){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Posts").child(postID).child("postUser");
+
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.getValue().equals(currentUser))
+                {
+                    imageView.setVisibility(View.VISIBLE);
+                }
+                else
+                    imageView.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
     private void getComments(String postID,TextView comments){
         DatabaseReference referenceGettingComments = FirebaseDatabase.getInstance().getReference("Comments").child(postID);
