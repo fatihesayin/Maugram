@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.example.maugramsocial.Adapter.ClubAdapter;
@@ -52,7 +53,6 @@ public class ClubsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_clubs, container, false);
-
         clubsRecyclerView = view.findViewById(R.id.clubsRecyclerView);
         clubsRecyclerView.setHasFixedSize(true);
         clubsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

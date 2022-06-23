@@ -6,12 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".Activity.ChatActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_chat_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/windowBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Chats"
+            android:textStyle="bold"
+            android:layout_marginLeft="40dp"
+            android:textSize="20dp"/>
+    </androidx.appcompat.widget.Toolbar>
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chat_activity_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="56dp"
         tools:listitem="@layout/dialog_element"/>
 
 </RelativeLayout>

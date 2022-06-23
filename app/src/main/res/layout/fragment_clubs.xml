@@ -6,8 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".Fragment.ClubsFragment">
 
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbar_fragment_clubs"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Clubs"
+            android:textColor="@color/black"
+            android:textSize="16sp"/>
+    </androidx.appcompat.widget.Toolbar>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/clubsRecyclerView"
+        android:layout_marginTop="56dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

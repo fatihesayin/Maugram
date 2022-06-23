@@ -12,6 +12,7 @@ import com.example.maugramsocial.Adapter.UserAdapter;
 import com.example.maugramsocial.Model.User;
 import com.example.maugramsocial.R;
 import com.example.maugramsocial.databinding.ActivityChatBinding;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -31,6 +32,8 @@ public class ChatActivity extends AppCompatActivity {
         binding = ActivityChatBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        String currentFu = FirebaseAuth.getInstance().getUid();
+
         mUsers = new ArrayList<>();
         chatUserAdapter = new ChatUsersAdapter(this, mUsers);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -45,9 +48,26 @@ public class ChatActivity extends AppCompatActivity {
                 mUsers.clear();
                 for (DataSnapshot dataSnapshot: snapshot.getChildren()){
                     User user = dataSnapshot.getValue(User.class);
-                    mUsers.add(user);
+                    FirebaseDatabase.getInstance().getReference("Follow").child(currentFu).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.child("Following").hasChild(user.getId())) {
+                                Log.i("terrrr1", "geldi");
+                                if (snapshot.child("Follower").hasChild(user.getId()))
+                                {
+                                    Log.i("terrrr2","geldi");
+                                    mUsers.add(user);
+                                }
+                            }
+                            chatUserAdapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                 }
-                chatUserAdapter.notifyDataSetChanged();
             }
 
             @Override

@@ -208,10 +208,26 @@ public class ProfileFragment extends Fragment {
                 }
                 User user = snapshot.getValue(User.class);
 
-                Glide.with(getContext()).load(user.getPhotoURL()).into(profilePhoto);
-                txt_Username.setText(user.getUserName());
-                txt_Name.setText(user.getFullName());
-                txt_Bio.setText(user.getBio());
+                try {
+                    Glide.with(getContext()).load(user.getPhotoURL()).into(profilePhoto);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                try {
+                    txt_Username.setText(user.getUserName());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                try {
+                    txt_Name.setText(user.getFullName());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                try {
+                    txt_Bio.setText(user.getBio());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
