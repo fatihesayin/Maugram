@@ -27,13 +27,15 @@
                     android:layout_centerHorizontal="true"
                     android:scaleType="centerCrop"
                     android:src="@drawable/maugram" />
+
                 <ImageView
-                    android:src="@drawable/ic_message_box"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginRight="10dp"
-                    android:layout_centerVertical="true"
+                    android:id="@+id/fragment_home_chat"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_message_box" />
             </RelativeLayout>
 
         </androidx.appcompat.widget.Toolbar>
@@ -65,11 +67,10 @@
     </androidx.core.widget.NestedScrollView>
 
 
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:menu="@menu/bottom_navigation_menu"/>
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/bottom_navigation_menu" />
 </RelativeLayout>

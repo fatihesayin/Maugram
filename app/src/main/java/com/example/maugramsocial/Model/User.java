@@ -6,17 +6,27 @@ public class User {
     private String fullName;
     private String photourl;
     private String bio;
+    private Boolean isClub;
 
-    public User(String id, String userName, String fullName, String photourl, String bio) {
+    public User(String id, String userName, String fullName, String photourl, String bio, Boolean isClub) {
         this.id = id;
         this.userName = userName;
         this.fullName = fullName;
         this.photourl = photourl;
         this.bio = bio;
+        this.isClub = isClub;
     }
 
     public User() {
 
+    }
+
+    public Boolean getClub() {
+        return isClub;
+    }
+
+    public void setClub(Boolean club) {
+        isClub = club;
     }
 
     public String getId() {
