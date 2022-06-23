@@ -1,5 +1,6 @@
 package com.example.maugramsocial.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,7 +13,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.example.maugramsocial.Activity.ChatActivity;
 import com.example.maugramsocial.Adapter.PostAdapter;
 import com.example.maugramsocial.Adapter.StoryAdapter;
 import com.example.maugramsocial.Model.Post;
@@ -31,6 +34,7 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
+    private ImageView goChat;
     private RecyclerView recyclerView;
     private PostAdapter postAdapter;
     private List<Post> postList;
@@ -49,6 +53,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        goChat = view.findViewById(R.id.fragment_home_chat);
         recyclerView = view.findViewById(R.id.recycler_Home);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -72,6 +77,13 @@ public class HomeFragment extends Fragment {
         recyclerView.setAdapter(postAdapter);
 
         followControl();
+        goChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ChatActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }
